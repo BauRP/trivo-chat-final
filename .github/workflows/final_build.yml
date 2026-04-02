@@ -42,7 +42,7 @@ jobs:
         working-directory: ./android
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug -Pandroid.overrideCompileSdk=36 -Pandroid.overrideTargetSdk=36 -Pandroid.lint.haltOnError=false
+          ./gradlew assembleDebug -Pandroid.overrideCompileSdk=36 -Pandroid.overrideTargetSdk=36 -Pandroid.lint.haltOnError=true
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
