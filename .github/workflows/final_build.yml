@@ -38,11 +38,12 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync android
 
-      - name: Force Global MinSDK 23
+      - name: Total Cleanup and Force MinSDK 23
         run: |
-          # Ищем и заменяем 22 на 23 во всех файлах конфигурации
-          find android -type f -name "*.gradle" -exec sed -i 's/minSdkVersion = 22/minSdkVersion = 23/g' {} +
-          find android -type f -name "*.gradle" -exec sed -i 's/minSdk 22/minSdk 23/g' {} +
+          # Ищем версию 22 во ВСЕХ файлах проекта и библиотек и меняем на 23
+          grep -rl "minSdkVersion 22" . | xargs sed -i 's/minSdkVersion 22/minSdkVersion 23/g' || true
+          grep -rl "minSdkVersion = 22" . | xargs sed -i 's/minSdkVersion = 22/minSdkVersion = 23/g' || true
+          grep -rl "minSdk 22" . | xargs sed -i 's/minSdk 22/minSdk 23/g' || true
 
       - name: Build APK
         working-directory: ./android
