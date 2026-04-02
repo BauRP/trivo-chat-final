@@ -38,13 +38,16 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync android
 
+      - name: Force MinSDK 23
+        run: |
+          find android -name "build.gradle" -exec sed -i 's/minSdkVersion 22/minSdkVersion 23/g' {} +
+          find android -name "variables.gradle" -exec sed -i 's/minSdkVersion = 22/minSdkVersion = 23/g' {} +
+
       - name: Build APK
         working-directory: ./android
         run: |
           chmod +x gradlew
-          # Жесткая очистка проекта перед сборкой
           ./gradlew clean
-          # Сборка с принудительным переопределением всех SDK на 23+
           ./gradlew assembleDebug \
             -Pandroid.overrideCompileSdk=36 \
             -Pandroid.overrideTargetSdk=36 \
