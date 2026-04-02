@@ -46,7 +46,7 @@ jobs:
             -Pandroid.overrideCompileSdk=36 \
             -Pandroid.overrideTargetSdk=36 \
             -Pandroid.overrideMinSdk=23 \
-            -Pandroid.lint.haltOnError=false
+            -Pandroid.lint.haltOnError=true
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
