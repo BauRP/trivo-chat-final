@@ -26,8 +26,8 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
-          api-level: 35
-          build-tools: 35.0.0
+          api-level: 36
+          build-tools: 36.0.0
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
@@ -42,7 +42,7 @@ jobs:
         working-directory: ./android
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug -Pandroid.overrideCompileSdk=35
+          ./gradlew assembleDebug -Pandroid.overrideCompileSdk=36 -Pandroid.overrideTargetSdk=36
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
