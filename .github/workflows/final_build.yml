@@ -23,10 +23,16 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          api-level: 35
+          build-tools: 35.0.0
+
+      - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build Web
+      - name: Build Web Project
         run: npm run build
 
       - name: Sync Capacitor
@@ -34,7 +40,9 @@ jobs:
 
       - name: Build APK
         working-directory: ./android
-        run: ./gradlew assembleDebug
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug -Pandroid.overrideCompileSdk=35
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
