@@ -15,11 +15,6 @@
 
     <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
         <item name="android:windowBackground">@drawable/splash</item>
-        
-        <item name="android:windowSplashscreenContentControl">0</item>
-        <item name="android:windowSplashscreenGravity">center</item>
-        
-        <item name="windowSplashScreenBackground">#FFFFFF</item>
-    </style>
+        </style>
 
 </resources>
