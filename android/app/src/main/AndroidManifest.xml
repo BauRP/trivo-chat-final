@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-sdk tools:overrideLibrary="com.aparajita.capacitor.biometricauth, com.getcapacitor.community.admob.admob, com.getcapacitor.community.admob, io.capawesome.capacitorjs.plugins.mlkit.barcodescanning, androidx.camera.video, androidx.camera.view, androidx.camera.lifecycle, androidx.camera.core" />
+    <uses-sdk tools:overrideLibrary="com.getcapacitor.android, com.aparajita.capacitor.biometricauth, com.getcapacitor.community.admob.admob, com.getcapacitor.community.admob, io.capawesome.capacitorjs.plugins.mlkit.barcodescanning, androidx.camera.video, androidx.camera.view, androidx.camera.lifecycle, androidx.camera.core" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
