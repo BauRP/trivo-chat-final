@@ -188,13 +188,13 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
         </div>
 
         {/* Delete Account - with clear separation */}
-        <div className="mt-20 w-full flex justify-center">
+        <div style={{ marginTop: "80px", marginBottom: "40px", width: "100%", display: "flex", justifyContent: "center" }}>
           <button
             onClick={() => setShowDeleteModal(true)}
-            className="w-full flex items-center justify-center gap-2 px-3 py-3 rounded-xl border border-destructive/30 text-destructive hover:bg-destructive/10 transition-colors"
+            className="w-full max-w-md py-4 rounded-xl border border-destructive/30 bg-destructive/10 text-destructive font-semibold flex items-center justify-center gap-2 hover:bg-destructive/20 transition-colors"
           >
-            <Trash2 size={16} />
-            <span className="text-sm font-medium">{t("deleteAccount")}</span>
+            <Trash2 size={18} />
+            {t("deleteAccount")}
           </button>
         </div>
       </div>
