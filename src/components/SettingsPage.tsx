@@ -79,7 +79,7 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
         <h1 className="text-xl font-bold gradient-text">{t("settings")}</h1>
       </div>
 
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-4 space-y-0">
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-4 space-y-0 pb-[120px]">
         {/* Top Group: Dark Mode + Language */}
         <div className="flex items-center gap-3 px-3 py-3 rounded-xl glass-panel-sm">
           {theme === "dark" ? <Moon size={18} className="text-blue-400" /> : <Sun size={18} className="text-yellow-400" />}
@@ -104,7 +104,7 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
         <Separator className="my-3 bg-border/40" />
 
         {/* Notifications Section */}
-        <p className="text-xs text-muted-foreground font-medium px-1 mb-1.5">{t("notificationsSection")}</p>
+        <p className="text-xs text-muted-foreground font-medium px-1 pt-6 mb-3">{t("notificationsSection")}</p>
 
         <div className="flex items-center gap-3 px-3 py-3 rounded-xl glass-panel-sm">
           <Bell size={18} className="text-yellow-400" />
@@ -124,7 +124,7 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
         <Separator className="my-3 bg-border/40" />
 
         {/* Security Section */}
-        <p className="text-xs text-muted-foreground font-medium px-1 mb-1.5">{t("securitySection")}</p>
+        <p className="text-xs text-muted-foreground font-medium px-1 pt-6 mb-3">{t("securitySection")}</p>
 
         <div className="space-y-1.5">
           <div className="flex items-center gap-3 px-3 py-3 rounded-xl glass-panel-sm">
@@ -164,7 +164,7 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
         <Separator className="my-3 bg-border/40" />
 
         {/* Support & Privacy Section */}
-        <p className="text-xs text-muted-foreground font-medium px-1 mb-1.5">{t("supportPrivacy")}</p>
+        <p className="text-xs text-muted-foreground font-medium px-1 pt-6 mb-3">{t("supportPrivacy")}</p>
 
         <div className="space-y-1.5">
           <div className="flex items-center gap-3 px-3 py-3 rounded-xl glass-panel-sm">
@@ -188,7 +188,7 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
         </div>
 
         {/* Delete Account - with clear separation */}
-        <div className="mt-8 pb-6">
+        <div className="mt-10">
           <button
             onClick={() => setShowDeleteModal(true)}
             className="w-full flex items-center justify-center gap-2 px-3 py-3 rounded-xl border border-destructive/30 text-destructive hover:bg-destructive/10 transition-colors"
