@@ -188,7 +188,7 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
         </div>
 
         {/* Delete Account - with clear separation */}
-        <div className="mt-8 pb-6">
+        <div className="mt-10">
           <button
             onClick={() => setShowDeleteModal(true)}
             className="w-full flex items-center justify-center gap-2 px-3 py-3 rounded-xl border border-destructive/30 text-destructive hover:bg-destructive/10 transition-colors"
