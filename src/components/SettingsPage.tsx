@@ -79,7 +79,7 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
         <h1 className="text-xl font-bold gradient-text">{t("settings")}</h1>
       </div>
 
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-4 space-y-0">
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-4 space-y-0 pb-[120px]">
         {/* Top Group: Dark Mode + Language */}
         <div className="flex items-center gap-3 px-3 py-3 rounded-xl glass-panel-sm">
           {theme === "dark" ? <Moon size={18} className="text-blue-400" /> : <Sun size={18} className="text-yellow-400" />}
