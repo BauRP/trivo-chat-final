@@ -124,7 +124,7 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
         <Separator className="my-3 bg-border/40" />
 
         {/* Security Section */}
-        <p className="text-xs text-muted-foreground font-medium px-1 mb-1.5">{t("securitySection")}</p>
+        <p className="text-xs text-muted-foreground font-medium px-1 pt-6 mb-3">{t("securitySection")}</p>
 
         <div className="space-y-1.5">
           <div className="flex items-center gap-3 px-3 py-3 rounded-xl glass-panel-sm">
