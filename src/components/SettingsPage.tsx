@@ -79,8 +79,7 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
         <h1 className="text-xl font-bold gradient-text">{t("settings")}</h1>
       </div>
 
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-4 space-y-0 pb-[120px]">
-        {/* Top Group: Dark Mode + Language */}
+      <div className="flex-1 overflow-y-auto scrollbar-hide px-4 space-y-0 pb-10">
         <div className="flex items-center gap-3 px-3 py-3 rounded-xl glass-panel-sm">
           {theme === "dark" ? <Moon size={18} className="text-blue-400" /> : <Sun size={18} className="text-yellow-400" />}
           <span className="flex-1 text-sm text-foreground">{t("darkTheme")}</span>
@@ -103,7 +102,6 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
 
         <Separator className="my-3 bg-border/40" />
 
-        {/* Notifications Section */}
         <p className="text-xs text-muted-foreground font-medium px-1 pt-6 mb-3">{t("notificationsSection")}</p>
 
         <div className="flex items-center gap-3 px-3 py-3 rounded-xl glass-panel-sm">
@@ -123,7 +121,6 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
 
         <Separator className="my-3 bg-border/40" />
 
-        {/* Security Section */}
         <p className="text-xs text-muted-foreground font-medium px-1 pt-6 mb-3">{t("securitySection")}</p>
 
         <div className="space-y-1.5">
@@ -163,7 +160,6 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
 
         <Separator className="my-3 bg-border/40" />
 
-        {/* Support & Privacy Section */}
         <p className="text-xs text-muted-foreground font-medium px-1 pt-6 mb-3">{t("supportPrivacy")}</p>
 
         <div className="space-y-1.5">
@@ -187,8 +183,9 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
           </a>
         </div>
 
-        {/* Delete Account - with clear separation */}
-        <div style={{ marginTop: "80px", marginBottom: "40px", width: "100%", display: "flex", justifyContent: "center" }}>
+        <div style={{ height: "60px", width: "100%" }}></div>
+
+        <div className="w-full flex justify-center">
           <button
             onClick={() => setShowDeleteModal(true)}
             className="w-full max-w-md py-4 rounded-xl border border-destructive/30 bg-destructive/10 text-destructive font-semibold flex items-center justify-center gap-2 hover:bg-destructive/20 transition-colors"
@@ -199,7 +196,6 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
         </div>
       </div>
 
-      {/* Delete confirmation modal */}
       {showDeleteModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm px-6">
           <div className="glass-panel neon-border rounded-2xl p-6 max-w-sm w-full space-y-4">
