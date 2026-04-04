@@ -50,7 +50,6 @@ export function initPeer(fingerprint: string): Promise<string> {
 
       peer.on("open", (id) => {
         clearTimeout(timeout);
-        console.log("[P2P] Peer open:", id);
         resolve(id);
       });
 
