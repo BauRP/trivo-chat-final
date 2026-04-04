@@ -44,7 +44,7 @@ export function initPeer(fingerprint: string): Promise<string> {
       peer = new Peer(sanitizedId, { debug: 0 });
 
       const timeout = setTimeout(() => {
-        console.warn("[P2P] Peer open timeout — resolving with fallback ID");
+        // Silent fallback
         resolve(sanitizedId);
       }, 10000);
 
