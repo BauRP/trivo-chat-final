@@ -1,4 +1,4 @@
-import { ArrowLeft, Moon, Shield, Bell, Globe, Fingerprint, Sun, Radio, EyeOff, FileText, Trash2, Mail, ExternalLink, BellOff } from "lucide-react";
+import { ArrowLeft, Moon, Shield, Bell, Globe, Fingerprint, Sun, EyeOff, FileText, Trash2, Mail, ExternalLink, BellOff } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -28,7 +28,7 @@ const Toggle = ({ value, onChange }: { value: boolean; onChange: () => void }) =
 const SettingsPage = ({ onBack }: SettingsPageProps) => {
   const { theme, toggleTheme } = useTheme();
   const { t, language, setLanguage } = useLanguage();
-  const { noiseEnabled, stealthMode, toggleNoise, toggleStealth, deleteAccount } = useIdentity();
+  const { stealthMode, toggleStealth, deleteAccount } = useIdentity();
   const { isEnabled: biometricEnabled, toggle: toggleBiometric } = useBiometricAuth();
 
   const [notifications, setNotifications] = useState(() => {
@@ -80,6 +80,7 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
       </div>
 
       <div className="flex-1 overflow-y-auto scrollbar-hide px-4 space-y-0 pb-10">
+        {/* Appearance */}
         <div className="flex items-center gap-3 px-3 py-3 rounded-xl glass-panel-sm">
           {theme === "dark" ? <Moon size={18} className="text-blue-400" /> : <Sun size={18} className="text-yellow-400" />}
           <span className="flex-1 text-sm text-foreground">{t("darkTheme")}</span>
@@ -102,7 +103,8 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
 
         <Separator className="my-3 bg-border/40" />
 
-        <p className="text-xs text-muted-foreground font-medium px-1 pt-6 mb-3">{t("notificationsSection")}</p>
+        {/* Notifications */}
+        <p className="text-xs text-muted-foreground font-medium px-1 pt-4 mb-3">{t("notificationsSection")}</p>
 
         <div className="flex items-center gap-3 px-3 py-3 rounded-xl glass-panel-sm">
           <Bell size={18} className="text-yellow-400" />
@@ -121,22 +123,14 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
 
         <Separator className="my-3 bg-border/40" />
 
-        <p className="text-xs text-muted-foreground font-medium px-1 pt-6 mb-3">{t("securitySection")}</p>
+        {/* Security */}
+        <p className="text-xs text-muted-foreground font-medium px-1 pt-4 mb-3">{t("securitySection")}</p>
 
         <div className="space-y-1.5">
           <div className="flex items-center gap-3 px-3 py-3 rounded-xl glass-panel-sm">
             <Fingerprint size={18} className="text-pink-400" />
             <span className="flex-1 text-sm text-foreground">{t("biometricLock")}</span>
             <Toggle value={biometricEnabled} onChange={toggleBiometric} />
-          </div>
-
-          <div className="flex items-center gap-3 px-3 py-3 rounded-xl glass-panel-sm">
-            <Radio size={18} className="text-primary" />
-            <div className="flex-1">
-              <span className="text-sm text-foreground">{t("networkNoise")}</span>
-              <p className="text-[11px] text-muted-foreground mt-0.5">{t("networkNoiseDesc")}</p>
-            </div>
-            <Toggle value={noiseEnabled} onChange={toggleNoise} />
           </div>
 
           <div className="flex items-center gap-3 px-3 py-3 rounded-xl glass-panel-sm">
@@ -160,7 +154,8 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
 
         <Separator className="my-3 bg-border/40" />
 
-        <p className="text-xs text-muted-foreground font-medium px-1 pt-6 mb-3">{t("supportPrivacy")}</p>
+        {/* Support & Privacy */}
+        <p className="text-xs text-muted-foreground font-medium px-1 pt-4 mb-3">{t("supportPrivacy")}</p>
 
         <div className="space-y-1.5">
           <div className="flex items-center gap-3 px-3 py-3 rounded-xl glass-panel-sm">
@@ -185,7 +180,7 @@ const SettingsPage = ({ onBack }: SettingsPageProps) => {
 
         <div style={{ height: "60px", width: "100%" }}></div>
 
-        <div className="w-full flex justify-center">
+        <div style={{ marginTop: "20px", marginBottom: "40px", width: "100%", display: "flex", justifyContent: "center" }}>
           <button
             onClick={() => setShowDeleteModal(true)}
             className="w-full max-w-md py-4 rounded-xl border border-destructive/30 bg-destructive/10 text-destructive font-semibold flex items-center justify-center gap-2 hover:bg-destructive/20 transition-colors"

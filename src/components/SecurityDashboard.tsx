@@ -1,10 +1,10 @@
-import { Shield, Radio, Key, Fingerprint, Lock, Wifi, Activity, Zap, Eye, EyeOff } from "lucide-react";
+import { Shield, Key, Fingerprint, Lock, Wifi, Activity, Zap, Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIdentity } from "@/contexts/IdentityContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const SecurityDashboard = () => {
-  const { identity, fingerprint, noiseEnabled, stealthMode, toggleNoise, toggleStealth } = useIdentity();
+  const { identity, fingerprint, stealthMode, toggleStealth } = useIdentity();
   const { t } = useLanguage();
 
   const statusItems = [
@@ -16,12 +16,11 @@ const SecurityDashboard = () => {
       active: true,
     },
     {
-      icon: Radio,
-      label: t("networkNoise"),
-      value: noiseEnabled ? t("active") : t("inactive"),
-      color: noiseEnabled ? "text-primary" : "text-muted-foreground",
-      active: noiseEnabled,
-      onToggle: toggleNoise,
+      icon: Fingerprint,
+      label: t("biometricLock"),
+      value: t("active"),
+      color: "text-pink-400",
+      active: true,
     },
     {
       icon: stealthMode ? EyeOff : Eye,

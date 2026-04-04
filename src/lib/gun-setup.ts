@@ -1,8 +1,6 @@
-// Gun.js decentralized data sync layer
 import Gun from "gun";
 import "gun/sea";
 
-// Robust multi-node relay list with auto-failover
 const RELAY_PEERS = [
   "https://gun-manhattan.herokuapp.com/gun",
   "https://peer.wallie.io/gun",
@@ -19,12 +17,10 @@ try {
     localStorage: true,
     radisk: true,
   });
-} catch (e) {
-  // Fallback: local-only Gun instance
+} catch {
   gun = Gun({ localStorage: true, radisk: true });
 }
 
-// Auto-failover: periodically check peer health and reconnect
 let healthCheckInterval: ReturnType<typeof setInterval> | null = null;
 
 function startPeerHealthCheck() {
@@ -33,29 +29,19 @@ function startPeerHealthCheck() {
     try {
       const mesh = gun?.back?.("opt.peers") || gun?._.opt?.peers;
       if (!mesh || Object.keys(mesh).length === 0) {
-        // No connected peers — attempt reconnection
         RELAY_PEERS.forEach((peer) => {
-          try {
-            gun.opt({ peers: [peer] });
-          } catch {}
+          try { gun.opt({ peers: [peer] }); } catch {}
         });
       }
     } catch {}
-  }, 30000); // Check every 30s
+  }, 30000);
 }
 
 startPeerHealthCheck();
 
 export default gun;
 
-/**
- * Publish user's public keys to the Gun network so contacts can discover them.
- */
-export function publishPublicKeys(
-  userId: string,
-  signingPubKey: string,
-  exchangePubKey: string
-) {
+export function publishPublicKeys(userId: string, signingPubKey: string, exchangePubKey: string) {
   try {
     gun.get("trivo-users").get(userId).put({
       signingKey: signingPubKey,
@@ -65,12 +51,7 @@ export function publishPublicKeys(
   } catch {}
 }
 
-/**
- * Lookup a contact's public keys by their ID.
- */
-export function lookupPublicKeys(
-  userId: string
-): Promise<{ signingKey: string; exchangeKey: string } | null> {
+export function lookupPublicKeys(userId: string): Promise<{ signingKey: string; exchangeKey: string } | null> {
   return new Promise((resolve) => {
     try {
       gun.get("trivo-users").get(userId).once((data: any) => {
@@ -87,13 +68,7 @@ export function lookupPublicKeys(
   });
 }
 
-/**
- * Send an encrypted message via GunDB.
- */
-export function sendGunMessage(
-  channelId: string,
-  messagePayload: Record<string, unknown>
-) {
+export function sendGunMessage(channelId: string, messagePayload: Record<string, unknown>) {
   try {
     const msgId = `msg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     gun.get("trivo-channels").get(channelId).get(msgId).put({
@@ -103,21 +78,12 @@ export function sendGunMessage(
   } catch {}
 }
 
-/**
- * Subscribe to messages on a channel.
- */
-export function subscribeToChannel(
-  channelId: string,
-  callback: (data: any, key: string) => void
-) {
+export function subscribeToChannel(channelId: string, callback: (data: any, key: string) => void) {
   try {
     gun.get("trivo-channels").get(channelId).map().on(callback);
   } catch {}
 }
 
-/**
- * Send a dummy noise packet for traffic analysis resistance.
- */
 export function sendNoisePacket() {
   try {
     const noiseChannelId = `noise-${Math.random().toString(36).slice(2, 10)}`;
