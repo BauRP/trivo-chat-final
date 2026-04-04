@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 import ChatList from "@/components/ChatList";
@@ -10,6 +10,7 @@ import SecurityDashboard from "@/components/SecurityDashboard";
 import AdMobBanner from "@/components/AdMobBanner";
 import { useIdentity } from "@/contexts/IdentityContext";
 import { initPeer, onP2PMessage, onConnectionChange, flushPendingMessages, saveChatMeta, getChatMeta, type P2PMessage } from "@/lib/p2p";
+import { executePanic, createPanicLongPress } from "@/lib/panic";
 
 type Tab = "chats" | "add-friend" | "friends" | "security" | "profile";
 
@@ -17,15 +18,17 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState<Tab>("chats");
   const [openChat, setOpenChat] = useState<{ id: string; name: string; emoji: string } | null>(null);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
-  const { fingerprint } = useIdentity();
+  const { fingerprint, stealthMode } = useIdentity();
+
+  // Panic trigger: long-press on the top-left area (3s hold)
+  const panicHandlers = useMemo(() => createPanicLongPress(executePanic), []);
 
   // Initialize P2P
   useEffect(() => {
     if (!fingerprint) return;
-    initPeer(fingerprint).catch(console.warn);
+    initPeer(fingerprint).catch(() => {});
 
     const unsubMsg = onP2PMessage(async (msg: P2PMessage) => {
-      // Update chat meta when receiving a message
       const existing = await getChatMeta(msg.from);
       await saveChatMeta({
         friendId: msg.from,
@@ -65,10 +68,13 @@ const Index = () => {
     setOpenChat({ id, name, emoji });
   };
 
+  // Show AdMob only when online AND not in stealth mode
+  const showAd = isOnline && !stealthMode;
+
   if (openChat) {
     return (
       <div className="h-[100dvh] max-w-md mx-auto flex flex-col overflow-hidden" style={{ backgroundImage: "var(--gradient-bg)" }}>
-        {isOnline && <AdMobBanner />}
+        {showAd && <AdMobBanner stealthMode={stealthMode} />}
         <ChatRoom
           chatId={openChat.id}
           name={openChat.name}
@@ -81,7 +87,13 @@ const Index = () => {
 
   return (
     <div className="h-[100dvh] max-w-md mx-auto flex flex-col overflow-hidden" style={{ backgroundImage: "var(--gradient-bg)" }}>
-      {isOnline && <AdMobBanner />}
+      {showAd && <AdMobBanner stealthMode={stealthMode} />}
+      {/* Invisible panic trigger zone — long-press top-left corner for 3s */}
+      <div
+        {...panicHandlers}
+        className="absolute top-0 left-0 w-12 h-12 z-50"
+        aria-hidden="true"
+      />
       <div className="flex-1 min-h-0 overflow-hidden pb-[72px]">
         <AnimatePresence mode="wait">
           <motion.div

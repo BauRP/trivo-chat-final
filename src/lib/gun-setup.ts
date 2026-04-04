@@ -2,22 +2,49 @@
 import Gun from "gun";
 import "gun/sea";
 
+// Robust multi-node relay list with auto-failover
+const RELAY_PEERS = [
+  "https://gun-manhattan.herokuapp.com/gun",
+  "https://peer.wallie.io/gun",
+  "https://gundb-relay-mlccl.ondigitalocean.app/gun",
+  "https://gun-ams1.livex.space/gun",
+  "https://gun-sjc1.livex.space/gun",
+];
+
 let gun: any;
 
 try {
   gun = Gun({
-    peers: [
-      "https://gun-manhattan.herokuapp.com/gun",
-      "https://gun-us.herokuapp.com/gun",
-    ],
+    peers: RELAY_PEERS,
     localStorage: true,
     radisk: true,
   });
 } catch (e) {
-  console.warn("[Gun] Failed to initialize:", e);
-  // Fallback: create a local-only Gun instance
+  // Fallback: local-only Gun instance
   gun = Gun({ localStorage: true, radisk: true });
 }
+
+// Auto-failover: periodically check peer health and reconnect
+let healthCheckInterval: ReturnType<typeof setInterval> | null = null;
+
+function startPeerHealthCheck() {
+  if (healthCheckInterval) return;
+  healthCheckInterval = setInterval(() => {
+    try {
+      const mesh = gun?.back?.("opt.peers") || gun?._.opt?.peers;
+      if (!mesh || Object.keys(mesh).length === 0) {
+        // No connected peers — attempt reconnection
+        RELAY_PEERS.forEach((peer) => {
+          try {
+            gun.opt({ peers: [peer] });
+          } catch {}
+        });
+      }
+    } catch {}
+  }, 30000); // Check every 30s
+}
+
+startPeerHealthCheck();
 
 export default gun;
 
@@ -35,9 +62,7 @@ export function publishPublicKeys(
       exchangeKey: exchangePubKey,
       updatedAt: Date.now(),
     });
-  } catch (e) {
-    console.warn("[Gun] publishPublicKeys error:", e);
-  }
+  } catch {}
 }
 
 /**
@@ -75,9 +100,7 @@ export function sendGunMessage(
       ...messagePayload,
       timestamp: Date.now(),
     });
-  } catch (e) {
-    console.warn("[Gun] sendGunMessage error:", e);
-  }
+  } catch {}
 }
 
 /**
@@ -89,9 +112,7 @@ export function subscribeToChannel(
 ) {
   try {
     gun.get("trivo-channels").get(channelId).map().on(callback);
-  } catch (e) {
-    console.warn("[Gun] subscribeToChannel error:", e);
-  }
+  } catch {}
 }
 
 /**
@@ -108,7 +129,5 @@ export function sendNoisePacket() {
       timestamp: Date.now(),
     };
     gun.get("trivo-noise").get(noiseChannelId).put(dummyPayload);
-  } catch (e) {
-    console.warn("[Gun] sendNoisePacket error:", e);
-  }
+  } catch {}
 }

@@ -44,13 +44,12 @@ export function initPeer(fingerprint: string): Promise<string> {
       peer = new Peer(sanitizedId, { debug: 0 });
 
       const timeout = setTimeout(() => {
-        console.warn("[P2P] Peer open timeout — resolving with fallback ID");
+        // Silent fallback
         resolve(sanitizedId);
       }, 10000);
 
       peer.on("open", (id) => {
         clearTimeout(timeout);
-        console.log("[P2P] Peer open:", id);
         resolve(id);
       });
 
@@ -60,7 +59,7 @@ export function initPeer(fingerprint: string): Promise<string> {
 
       peer.on("error", (err) => {
         clearTimeout(timeout);
-        console.warn("[P2P] Peer error:", err.type, err.message);
+        
         if (err.type === "unavailable-id") {
           const retryId = `trivo-${fingerprint.replace(/[^a-zA-Z0-9]/g, "").substring(0, 16)}-${Date.now().toString(36)}`;
           try {
@@ -76,7 +75,7 @@ export function initPeer(fingerprint: string): Promise<string> {
         }
       });
     } catch (e) {
-      console.warn("[P2P] initPeer failed:", e);
+      
       reject(e);
     }
   });
@@ -93,7 +92,7 @@ function handleConnection(conn: DataConnection) {
       const msg = data as P2PMessage;
       messageListeners.forEach((cb) => cb(msg));
     } catch (e) {
-      console.warn("[P2P] Invalid message data:", e);
+      
     }
   });
 
@@ -114,7 +113,7 @@ export function connectToPeer(peerId: string): DataConnection | null {
     handleConnection(conn);
     return conn;
   } catch (e) {
-    console.warn("[P2P] connectToPeer failed:", e);
+    
     return null;
   }
 }
