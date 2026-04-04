@@ -92,7 +92,7 @@ function handleConnection(conn: DataConnection) {
       const msg = data as P2PMessage;
       messageListeners.forEach((cb) => cb(msg));
     } catch (e) {
-      console.warn("[P2P] Invalid message data:", e);
+      
     }
   });
 
