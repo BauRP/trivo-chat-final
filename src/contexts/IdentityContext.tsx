@@ -37,12 +37,9 @@ export const IdentityProvider = ({ children }: { children: ReactNode }) => {
         try {
           const userId = getKeyFingerprint(keys.signing.publicKey);
           publishPublicKeys(userId, keys.signing.publicKey, keys.exchange.publicKey);
-        } catch (e) {
-          console.warn("[Identity] Gun publish failed:", e);
-        }
+        } catch {}
       })
-      .catch((e) => {
-        console.error("[Identity] Failed to create identity:", e);
+      .catch(() => {
         if (!cancelled) setIsLoading(false);
       });
     return () => { cancelled = true; };
