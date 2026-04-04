@@ -59,7 +59,7 @@ export function initPeer(fingerprint: string): Promise<string> {
 
       peer.on("error", (err) => {
         clearTimeout(timeout);
-        console.warn("[P2P] Peer error:", err.type, err.message);
+        
         if (err.type === "unavailable-id") {
           const retryId = `trivo-${fingerprint.replace(/[^a-zA-Z0-9]/g, "").substring(0, 16)}-${Date.now().toString(36)}`;
           try {
