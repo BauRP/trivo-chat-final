@@ -75,7 +75,7 @@ export function initPeer(fingerprint: string): Promise<string> {
         }
       });
     } catch (e) {
-      console.warn("[P2P] initPeer failed:", e);
+      
       reject(e);
     }
   });
