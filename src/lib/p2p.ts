@@ -113,7 +113,7 @@ export function connectToPeer(peerId: string): DataConnection | null {
     handleConnection(conn);
     return conn;
   } catch (e) {
-    console.warn("[P2P] connectToPeer failed:", e);
+    
     return null;
   }
 }
