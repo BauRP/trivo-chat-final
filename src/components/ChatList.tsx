@@ -48,7 +48,7 @@ const ChatList = ({ onOpenChat }: ChatListProps) => {
         status: "sent" as const,
         muted: false,
         blocked: false,
-        security: { e2ee: true, noise: false, invisible: false },
+        security: { e2ee: true, invisible: false },
       }));
       setChats(chatList);
     };
