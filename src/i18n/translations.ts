@@ -1279,6 +1279,22 @@ const hi: TranslationMap = {
   friendAdded: "दोस्त जोड़ा गया!",
   enterFriendId: "दोस्त का ID दर्ज करें...",
   e2eSessionStarted: "एंड-टू-एंड एन्क्रिप्टेड सत्र शुरू हुआ",
+  idCopied: "ID क्लिपबोर्ड पर कॉपी हो गया!",
+  copyFailed: "कॉपी करने में विफल",
+  invalidIdFormat: "अमान्य ID प्रारूप",
+  cannotAddSelf: "आप खुद को नहीं जोड़ सकते",
+  shareIdDesc: "दोस्तों के साथ यह ID साझा करें ताकि वे आपको जोड़ सकें",
+  addPeerById: "अद्वितीय ID द्वारा दोस्त जोड़ें",
+  unblockRestore: "अनब्लॉक और एक्सेस पुनर्स्थापित करें?",
+  unblockRestoreDesc: "यह उपयोगकर्ता पहले ब्लॉक किया गया था। क्या आप अनब्लॉक करके दोस्त के रूप में जोड़ना चाहते हैं?",
+  reportUser: "उपयोगकर्ता की रिपोर्ट करें",
+  reportSubmitted: "रिपोर्ट भेजी गई। उपयोगकर्ता ब्लॉक किया गया।",
+  reportFailed: "रिपोर्ट भेजने में विफल",
+  reportSpam: "स्पैम",
+  reportHarassment: "उत्पीड़न",
+  reportChildSafety: "बाल सुरक्षा",
+  reportIllegal: "अवैध गतिविधियाँ",
+  reportHateSpeech: "नफरत भरी बोली",
 };
 
 const pt: TranslationMap = {
