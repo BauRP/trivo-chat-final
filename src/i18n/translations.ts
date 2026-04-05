@@ -807,6 +807,22 @@ const de: TranslationMap = {
   friendAdded: "Freund hinzugefügt!",
   enterFriendId: "Freundes-ID eingeben...",
   e2eSessionStarted: "Ende-zu-Ende-verschlüsselte Sitzung gestartet",
+  idCopied: "ID in die Zwischenablage kopiert!",
+  copyFailed: "Kopieren fehlgeschlagen",
+  invalidIdFormat: "Ungültiges ID-Format",
+  cannotAddSelf: "Sie können sich nicht selbst hinzufügen",
+  shareIdDesc: "Teilen Sie diese ID mit Freunden, damit sie Sie hinzufügen können",
+  addPeerById: "Freund über eindeutige ID hinzufügen",
+  unblockRestore: "Entsperren und Zugang wiederherstellen?",
+  unblockRestoreDesc: "Dieser Benutzer wurde zuvor blockiert. Möchten Sie ihn entsperren und als Freund hinzufügen?",
+  reportUser: "Benutzer melden",
+  reportSubmitted: "Meldung gesendet. Benutzer blockiert.",
+  reportFailed: "Meldung fehlgeschlagen",
+  reportSpam: "Spam",
+  reportHarassment: "Belästigung",
+  reportChildSafety: "Kindersicherheit",
+  reportIllegal: "Illegale Aktivitäten",
+  reportHateSpeech: "Hassrede",
 };
 
 const ja: TranslationMap = {
