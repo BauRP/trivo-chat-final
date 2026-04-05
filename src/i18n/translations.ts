@@ -1161,6 +1161,22 @@ const ar: TranslationMap = {
   friendAdded: "تمت إضافة الصديق!",
   enterFriendId: "أدخل معرف الصديق...",
   e2eSessionStarted: "بدأت جلسة التشفير من طرف إلى طرف",
+  idCopied: "!تم نسخ المعرف إلى الحافظة",
+  copyFailed: "فشل النسخ",
+  invalidIdFormat: "تنسيق معرف غير صالح",
+  cannotAddSelf: "لا يمكنك إضافة نفسك",
+  shareIdDesc: "شارك هذا المعرف مع الأصدقاء حتى يتمكنوا من إضافتك",
+  addPeerById: "أضف صديقاً عبر معرفه الفريد",
+  unblockRestore: "إلغاء الحظر واستعادة الوصول؟",
+  unblockRestoreDesc: "تم حظر هذا المستخدم سابقاً. هل تريد إلغاء حظره وإضافته كصديق؟",
+  reportUser: "الإبلاغ عن المستخدم",
+  reportSubmitted: "تم إرسال البلاغ. تم حظر المستخدم.",
+  reportFailed: "فشل إرسال البلاغ",
+  reportSpam: "رسائل مزعجة",
+  reportHarassment: "تحرش",
+  reportChildSafety: "سلامة الأطفال",
+  reportIllegal: "أنشطة غير قانونية",
+  reportHateSpeech: "خطاب كراهية",
 };
 
 const hi: TranslationMap = {
