@@ -172,7 +172,7 @@ const ChatList = ({ onOpenChat }: ChatListProps) => {
                       </span>
                     )}
                   </div>
-                  <SecurityBadges e2ee={chat.security.e2ee} noise={chat.security.noise} invisible={chat.security.invisible} size={15} />
+                  <SecurityBadges e2ee={chat.security.e2ee} invisible={chat.security.invisible} size={15} />
                 </div>
                 <button
                   onClick={(e) => { e.stopPropagation(); setMenuOpen(menuOpen === chat.id ? null : chat.id); }}
