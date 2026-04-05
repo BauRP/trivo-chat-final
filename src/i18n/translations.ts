@@ -1869,6 +1869,22 @@ const nl: TranslationMap = {
   friendAdded: "Vriend toegevoegd!",
   enterFriendId: "Voer het ID van de vriend in...",
   e2eSessionStarted: "End-to-end versleutelde sessie gestart",
+  idCopied: "ID gekopieerd naar klembord!",
+  copyFailed: "Kopiëren mislukt",
+  invalidIdFormat: "Ongeldig ID-formaat",
+  cannotAddSelf: "U kunt uzelf niet toevoegen",
+  shareIdDesc: "Deel dit ID met vrienden zodat ze u kunnen toevoegen",
+  addPeerById: "Voeg vriend toe via uniek ID",
+  unblockRestore: "Deblokkeren en toegang herstellen?",
+  unblockRestoreDesc: "Deze gebruiker was eerder geblokkeerd. Wilt u deblokkeren en als vriend toevoegen?",
+  reportUser: "Gebruiker rapporteren",
+  reportSubmitted: "Melding verzonden. Gebruiker geblokkeerd.",
+  reportFailed: "Melding verzenden mislukt",
+  reportSpam: "Spam",
+  reportHarassment: "Intimidatie",
+  reportChildSafety: "Kinderveiligheid",
+  reportIllegal: "Illegale activiteiten",
+  reportHateSpeech: "Haatzaaien",
 };
 
 export const translations: Record<string, TranslationMap> = {
