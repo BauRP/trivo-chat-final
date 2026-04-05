@@ -689,6 +689,22 @@ const fr: TranslationMap = {
   friendAdded: "Ami ajouté !",
   enterFriendId: "Entrez l'ID de l'ami...",
   e2eSessionStarted: "Session chiffrée de bout en bout démarrée",
+  idCopied: "ID copié dans le presse-papiers !",
+  copyFailed: "Échec de la copie",
+  invalidIdFormat: "Format d'ID invalide",
+  cannotAddSelf: "Vous ne pouvez pas vous ajouter vous-même",
+  shareIdDesc: "Partagez cet ID avec vos amis pour qu'ils puissent vous ajouter",
+  addPeerById: "Ajouter un ami par son ID unique",
+  unblockRestore: "Débloquer et restaurer l'accès ?",
+  unblockRestoreDesc: "Cet utilisateur a été bloqué précédemment. Voulez-vous le débloquer et l'ajouter comme ami ?",
+  reportUser: "Signaler l'utilisateur",
+  reportSubmitted: "Signalement envoyé. Utilisateur bloqué.",
+  reportFailed: "Échec de l'envoi du signalement",
+  reportSpam: "Spam",
+  reportHarassment: "Harcèlement",
+  reportChildSafety: "Sécurité des enfants",
+  reportIllegal: "Activités illégales",
+  reportHateSpeech: "Discours haineux",
 };
 
 const de: TranslationMap = {
