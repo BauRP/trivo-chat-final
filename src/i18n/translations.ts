@@ -1397,6 +1397,22 @@ const pt: TranslationMap = {
   friendAdded: "Amigo adicionado!",
   enterFriendId: "Insira o ID do amigo...",
   e2eSessionStarted: "Sessão criptografada de ponta a ponta iniciada",
+  idCopied: "ID copiado para a área de transferência!",
+  copyFailed: "Falha ao copiar",
+  invalidIdFormat: "Formato de ID inválido",
+  cannotAddSelf: "Você não pode adicionar a si mesmo",
+  shareIdDesc: "Compartilhe este ID com amigos para que possam adicioná-lo",
+  addPeerById: "Adicionar amigo pelo ID único",
+  unblockRestore: "Desbloquear e restaurar acesso?",
+  unblockRestoreDesc: "Este usuário foi bloqueado anteriormente. Deseja desbloqueá-lo e adicionar como amigo?",
+  reportUser: "Denunciar usuário",
+  reportSubmitted: "Denúncia enviada. Usuário bloqueado.",
+  reportFailed: "Falha ao enviar denúncia",
+  reportSpam: "Spam",
+  reportHarassment: "Assédio",
+  reportChildSafety: "Segurança infantil",
+  reportIllegal: "Atividades ilegais",
+  reportHateSpeech: "Discurso de ódio",
 };
 
 const tr: TranslationMap = {
