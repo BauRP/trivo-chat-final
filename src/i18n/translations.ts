@@ -1043,6 +1043,22 @@ const zh: TranslationMap = {
   friendAdded: "好友已添加！",
   enterFriendId: "输入好友ID...",
   e2eSessionStarted: "端到端加密会话已开始",
+  idCopied: "ID已复制到剪贴板！",
+  copyFailed: "复制失败",
+  invalidIdFormat: "无效的ID格式",
+  cannotAddSelf: "不能添加自己",
+  shareIdDesc: "与好友分享此ID以便他们添加你",
+  addPeerById: "通过唯一ID添加好友",
+  unblockRestore: "解除屏蔽并恢复访问？",
+  unblockRestoreDesc: "此用户之前被屏蔽。是否要解除屏蔽并添加为好友？",
+  reportUser: "举报用户",
+  reportSubmitted: "举报已提交。用户已被屏蔽。",
+  reportFailed: "举报提交失败",
+  reportSpam: "垃圾信息",
+  reportHarassment: "骚扰",
+  reportChildSafety: "儿童安全",
+  reportIllegal: "违法活动",
+  reportHateSpeech: "仇恨言论",
 };
 
 const ar: TranslationMap = {
