@@ -1,4 +1,4 @@
-import { ArrowLeft, Paperclip, Send, Smile, Image, FileText, Music, Check, CheckCheck, Phone, Video, Lock } from "lucide-react";
+import { ArrowLeft, Paperclip, Send, Smile, Image, FileText, Music, Check, CheckCheck, Phone, Video, Lock, Flag } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import EmojiPicker from "emoji-picker-react";
@@ -8,6 +8,7 @@ import { useIdentity } from "@/contexts/IdentityContext";
 import DefaultAvatar from "./DefaultAvatar";
 import SecurityBadges from "./SecurityBadges";
 import CallScreen from "./CallScreen";
+import ReportMenu from "./ReportMenu";
 import {
   sendP2PMessage,
   getMessagesForChat,
@@ -40,18 +41,16 @@ const ChatRoom = ({ chatId, name, emoji, onBack }: ChatRoomProps) => {
   const [showAttach, setShowAttach] = useState(false);
   const [callType, setCallType] = useState<"audio" | "video" | null>(null);
   const [sessionStarted, setSessionStarted] = useState(false);
+  const [showReport, setShowReport] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
   const { theme } = useTheme();
   const { fingerprint } = useIdentity();
 
-  // Load messages from IndexedDB
   useEffect(() => {
     const loadMessages = async () => {
       const stored = await getMessagesForChat(chatId);
-      if (stored.length === 0) {
-        setSessionStarted(true);
-      }
+      if (stored.length === 0) setSessionStarted(true);
       setMessages(
         stored.map((m) => ({
           id: m.id,
@@ -63,13 +62,10 @@ const ChatRoom = ({ chatId, name, emoji, onBack }: ChatRoomProps) => {
       );
     };
     loadMessages();
-
-    // Try to connect to friend's peer
     const peerId = `trivo-${chatId.replace(/[^a-zA-Z0-9]/g, "").substring(0, 20)}`;
     connectToPeer(peerId);
   }, [chatId, fingerprint]);
 
-  // Listen for incoming messages
   useEffect(() => {
     const unsub = onP2PMessage((msg: P2PMessage) => {
       if (msg.from === chatId || msg.to === chatId) {
@@ -98,7 +94,6 @@ const ChatRoom = ({ chatId, name, emoji, onBack }: ChatRoomProps) => {
 
   const sendMessage = async () => {
     if (!input.trim() || !fingerprint) return;
-
     const msg: P2PMessage = {
       id: `msg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       from: fingerprint,
@@ -107,11 +102,8 @@ const ChatRoom = ({ chatId, name, emoji, onBack }: ChatRoomProps) => {
       timestamp: Date.now(),
       status: "sent",
     };
-
     const peerId = `trivo-${chatId.replace(/[^a-zA-Z0-9]/g, "").substring(0, 20)}`;
     await sendP2PMessage(peerId, msg);
-
-    // Update chat meta
     const existing = await getChatMeta(chatId);
     await saveChatMeta({
       friendId: chatId,
@@ -122,16 +114,9 @@ const ChatRoom = ({ chatId, name, emoji, onBack }: ChatRoomProps) => {
       unread: 0,
       started: true,
     });
-
     setMessages((prev) => [
       ...prev,
-      {
-        id: msg.id,
-        text: input,
-        sent: true,
-        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        status: "sent",
-      },
+      { id: msg.id, text: input, sent: true, time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }), status: "sent" },
     ]);
     setInput("");
     setShowEmoji(false);
@@ -153,7 +138,7 @@ const ChatRoom = ({ chatId, name, emoji, onBack }: ChatRoomProps) => {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5">
             <p className="font-semibold text-sm text-foreground">{name}</p>
-            <SecurityBadges e2ee noise={false} invisible={false} size={10} />
+            <SecurityBadges e2ee invisible={false} size={10} />
           </div>
           <p className="text-[11px] text-primary">{t("online")}</p>
         </div>
@@ -163,22 +148,23 @@ const ChatRoom = ({ chatId, name, emoji, onBack }: ChatRoomProps) => {
         <button onClick={() => setCallType("video")} className="p-2 rounded-lg hover:bg-secondary/50 text-muted-foreground">
           <Video size={20} />
         </button>
+        <button onClick={() => setShowReport(true)} className="p-2 rounded-lg hover:bg-secondary/50 text-muted-foreground">
+          <Flag size={18} />
+        </button>
       </div>
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto scrollbar-hide px-4 py-4 space-y-2">
-        {/* E2E session started notice */}
         {sessionStarted && messages.length === 0 && (
           <div className="flex justify-center py-4">
             <div className="flex items-center gap-2 px-4 py-2 rounded-full glass-panel-sm neon-border">
               <Lock size={12} className="text-primary" />
               <span className="text-xs text-muted-foreground">
-                {t("e2eSessionStarted") || "End-to-End Encrypted Session Started"}
+                {t("e2eSessionStarted")}
               </span>
             </div>
           </div>
         )}
-
         {messages.map((msg, i) => (
           <motion.div
             key={msg.id}
@@ -287,6 +273,9 @@ const ChatRoom = ({ chatId, name, emoji, onBack }: ChatRoomProps) => {
           <Send size={18} />
         </button>
       </div>
+
+      {/* Report Modal */}
+      <ReportMenu userId={chatId} open={showReport} onClose={() => setShowReport(false)} />
     </div>
   );
 };
