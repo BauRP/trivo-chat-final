@@ -571,6 +571,22 @@ const es: TranslationMap = {
   friendAdded: "¡Amigo agregado!",
   enterFriendId: "Introduce el ID del amigo...",
   e2eSessionStarted: "Sesión cifrada de extremo a extremo iniciada",
+  idCopied: "¡ID copiado al portapapeles!",
+  copyFailed: "Error al copiar",
+  invalidIdFormat: "Formato de ID inválido",
+  cannotAddSelf: "No puedes agregarte a ti mismo",
+  shareIdDesc: "Comparte este ID con amigos para que puedan agregarte",
+  addPeerById: "Agregar amigo por su ID único",
+  unblockRestore: "¿Desbloquear y restaurar acceso?",
+  unblockRestoreDesc: "Este usuario fue bloqueado anteriormente. ¿Deseas desbloquearlo y agregarlo como amigo?",
+  reportUser: "Reportar usuario",
+  reportSubmitted: "Reporte enviado. Usuario bloqueado.",
+  reportFailed: "Error al enviar reporte",
+  reportSpam: "Spam",
+  reportHarassment: "Acoso",
+  reportChildSafety: "Seguridad infantil",
+  reportIllegal: "Actividades ilegales",
+  reportHateSpeech: "Discurso de odio",
 };
 
 const fr: TranslationMap = {
