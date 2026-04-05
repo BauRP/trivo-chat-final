@@ -925,6 +925,22 @@ const ja: TranslationMap = {
   friendAdded: "友達を追加しました！",
   enterFriendId: "友達のIDを入力...",
   e2eSessionStarted: "エンドツーエンド暗号化セッション開始",
+  idCopied: "IDをクリップボードにコピーしました！",
+  copyFailed: "コピーに失敗しました",
+  invalidIdFormat: "無効なID形式",
+  cannotAddSelf: "自分自身を追加することはできません",
+  shareIdDesc: "このIDを友達と共有して追加してもらいましょう",
+  addPeerById: "固有IDで友達を追加",
+  unblockRestore: "ブロック解除してアクセスを復元しますか？",
+  unblockRestoreDesc: "このユーザーは以前ブロックされました。ブロックを解除して友達として追加しますか？",
+  reportUser: "ユーザーを報告",
+  reportSubmitted: "報告が送信されました。ユーザーがブロックされました。",
+  reportFailed: "報告の送信に失敗しました",
+  reportSpam: "スパム",
+  reportHarassment: "ハラスメント",
+  reportChildSafety: "児童の安全",
+  reportIllegal: "違法行為",
+  reportHateSpeech: "ヘイトスピーチ",
 };
 
 const zh: TranslationMap = {
