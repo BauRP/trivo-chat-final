@@ -335,6 +335,22 @@ const ru: TranslationMap = {
   friendAdded: "Друг добавлен!",
   enterFriendId: "Введите ID друга...",
   e2eSessionStarted: "Сквозное шифрование активировано",
+  idCopied: "ID скопирован в буфер обмена!",
+  copyFailed: "Не удалось скопировать",
+  invalidIdFormat: "Неверный формат ID",
+  cannotAddSelf: "Нельзя добавить себя",
+  shareIdDesc: "Поделитесь этим ID с друзьями, чтобы они могли вас добавить",
+  addPeerById: "Добавить друга по уникальному ID",
+  unblockRestore: "Разблокировать и восстановить доступ?",
+  unblockRestoreDesc: "Этот пользователь был ранее заблокирован. Хотите разблокировать и добавить в друзья?",
+  reportUser: "Пожаловаться",
+  reportSubmitted: "Жалоба отправлена. Пользователь заблокирован.",
+  reportFailed: "Не удалось отправить жалобу",
+  reportSpam: "Спам",
+  reportHarassment: "Преследование",
+  reportChildSafety: "Безопасность детей",
+  reportIllegal: "Незаконная деятельность",
+  reportHateSpeech: "Разжигание ненависти",
 };
 
 const kk: TranslationMap = {
