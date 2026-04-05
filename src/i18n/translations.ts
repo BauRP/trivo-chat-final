@@ -1515,6 +1515,22 @@ const tr: TranslationMap = {
   friendAdded: "Arkadaş eklendi!",
   enterFriendId: "Arkadaş ID'sini girin...",
   e2eSessionStarted: "Uçtan uca şifreli oturum başlatıldı",
+  idCopied: "ID panoya kopyalandı!",
+  copyFailed: "Kopyalama başarısız",
+  invalidIdFormat: "Geçersiz ID formatı",
+  cannotAddSelf: "Kendinizi ekleyemezsiniz",
+  shareIdDesc: "Bu ID'yi arkadaşlarınızla paylaşın",
+  addPeerById: "Benzersiz ID ile arkadaş ekle",
+  unblockRestore: "Engeli kaldır ve erişimi geri yükle?",
+  unblockRestoreDesc: "Bu kullanıcı daha önce engellenmiş. Engeli kaldırıp arkadaş olarak eklemek ister misiniz?",
+  reportUser: "Kullanıcıyı bildir",
+  reportSubmitted: "Bildirim gönderildi. Kullanıcı engellendi.",
+  reportFailed: "Bildirim gönderilemedi",
+  reportSpam: "Spam",
+  reportHarassment: "Taciz",
+  reportChildSafety: "Çocuk güvenliği",
+  reportIllegal: "Yasadışı faaliyetler",
+  reportHateSpeech: "Nefret söylemi",
 };
 
 const ko: TranslationMap = {
