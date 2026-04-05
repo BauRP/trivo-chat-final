@@ -1,47 +1,63 @@
-import { QrCode, ScanLine, UserPlus } from "lucide-react";
-import { QRCodeSVG } from "qrcode.react";
+import { Copy, UserPlus, Check } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useIdentity } from "@/contexts/IdentityContext";
-import { Capacitor } from "@capacitor/core";
+import { toast } from "sonner";
 import gun from "@/lib/gun-setup";
 import { saveChatMeta } from "@/lib/p2p";
+import { isValidBase58Id, publicKeyToBase58Id } from "@/lib/identity";
+import { isUserBlocked, unblockUser } from "@/lib/report";
 
 const AddFriend = () => {
-  const [mode, setMode] = useState<"qr" | "scan">("qr");
-  const [scanResult, setScanResult] = useState<string | null>(null);
-  const [friendAdded, setFriendAdded] = useState(false);
-  const [manualId, setManualId] = useState("");
+  const [peerId, setPeerId] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [showUnblockModal, setShowUnblockModal] = useState(false);
+  const [pendingUnblockId, setPendingUnblockId] = useState("");
   const { t } = useLanguage();
   const { fingerprint, identity } = useIdentity();
 
-  const qrValue = fingerprint;
+  const myBase58Id = identity ? publicKeyToBase58Id(identity.signing.publicKey) : "";
 
-  const startNativeScan = useCallback(async () => {
-    if (!Capacitor.isNativePlatform()) return;
+  const handleCopy = async () => {
+    if (!myBase58Id) return;
     try {
-      const { BarcodeScanner } = await import("@capacitor-mlkit/barcode-scanning");
-      const { camera } = await BarcodeScanner.checkPermissions();
-      if (camera !== "granted") {
-        await BarcodeScanner.requestPermissions();
-      }
-      const result = await BarcodeScanner.scan();
-      if (result.barcodes.length > 0) {
-        handleScannedId(result.barcodes[0].rawValue);
-      }
-    } catch (err) {
-      console.warn("Scanner error:", err);
+      await navigator.clipboard.writeText(myBase58Id);
+      setCopied(true);
+      toast.success(t("idCopied"));
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast.error(t("copyFailed"));
     }
-  }, []);
-
-  const handleScannedId = (scannedId: string) => {
-    setScanResult(scannedId);
-    addFriendById(scannedId);
   };
 
-  const addFriendById = async (friendId: string) => {
-    if (!friendId || !fingerprint || friendId === fingerprint) return;
+  const handleAddFriend = async () => {
+    const trimmed = peerId.trim();
+    if (!trimmed) return;
+
+    if (!isValidBase58Id(trimmed)) {
+      toast.error(t("invalidIdFormat"));
+      return;
+    }
+
+    if (trimmed === myBase58Id) {
+      toast.error(t("cannotAddSelf"));
+      return;
+    }
+
+    // Check if user is blocked
+    const blocked = await isUserBlocked(trimmed);
+    if (blocked) {
+      setPendingUnblockId(trimmed);
+      setShowUnblockModal(true);
+      return;
+    }
+
+    await addFriend(trimmed);
+  };
+
+  const addFriend = async (friendId: string) => {
+    if (!fingerprint || !identity) return;
 
     // Bi-directional Gun handshake
     gun.get("trivo-friends").get(fingerprint).get(friendId).put({
@@ -55,12 +71,11 @@ const AddFriend = () => {
 
     gun.get("trivo-friend-requests").get(friendId).get(fingerprint).put({
       from: fingerprint,
-      signingKey: identity?.signing.publicKey,
-      exchangeKey: identity?.exchange.publicKey,
+      signingKey: identity.signing.publicKey,
+      exchangeKey: identity.exchange.publicKey,
       timestamp: Date.now(),
     });
 
-    // Create chat entry in local storage
     await saveChatMeta({
       friendId,
       friendName: friendId.substring(0, 8),
@@ -70,15 +85,16 @@ const AddFriend = () => {
       started: false,
     });
 
-    setFriendAdded(true);
-    setTimeout(() => setFriendAdded(false), 3000);
+    toast.success(t("friendAdded"));
+    setPeerId("");
   };
 
-  useEffect(() => {
-    if (mode === "scan" && Capacitor.isNativePlatform()) {
-      startNativeScan();
-    }
-  }, [mode, startNativeScan]);
+  const handleUnblockAndAdd = async () => {
+    await unblockUser(pendingUnblockId);
+    await addFriend(pendingUnblockId);
+    setShowUnblockModal(false);
+    setPendingUnblockId("");
+  };
 
   return (
     <div className="flex flex-col h-full">
@@ -86,122 +102,90 @@ const AddFriend = () => {
         <h1 className="text-2xl font-bold gradient-text">{t("addFriend")}</h1>
       </div>
 
-      <div className="flex gap-2 px-5 mb-6 shrink-0">
-        {([
-          { id: "qr" as const, labelKey: "myQrCode" as const, icon: QrCode },
-          { id: "scan" as const, labelKey: "scanQr" as const, icon: ScanLine },
-        ]).map(({ id, labelKey, icon: Icon }) => (
-          <button
-            key={id}
-            onClick={() => setMode(id)}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-medium text-sm transition-all ${
-              mode === id
-                ? "bg-primary text-primary-foreground neon-glow"
-                : "glass-panel-sm text-muted-foreground hover:text-foreground hover:neon-border"
-            }`}
-          >
-            <Icon size={18} />
-            {t(labelKey)}
-          </button>
-        ))}
-      </div>
-
-      {friendAdded && (
+      <div className="flex-1 flex flex-col px-5 gap-6 overflow-y-auto scrollbar-hide">
+        {/* Your Unique ID */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0 }}
-          className="mx-5 mb-4 p-3 rounded-xl bg-primary/20 neon-border flex items-center gap-2"
+          className="glass-panel p-5 neon-border rounded-xl"
         >
-          <UserPlus size={16} className="text-primary" />
-          <span className="text-sm text-primary font-medium">{t("friendAdded")}</span>
-        </motion.div>
-      )}
-
-      <div className="flex-1 flex items-center justify-center px-5 overflow-y-auto">
-        {mode === "qr" ? (
-          <motion.div
-            key="qr"
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="glass-panel p-8 flex flex-col items-center gap-5 neon-border"
-          >
-            <div className="p-4 bg-card rounded-2xl neon-border">
-              <QRCodeSVG
-                value={qrValue || "loading..."}
-                size={200}
-                bgColor="transparent"
-                fgColor="hsl(172, 100%, 42%)"
-                level="H"
-              />
-            </div>
-            <div className="text-center">
-              <p className="text-sm text-muted-foreground mb-1">{t("yourUniqueId")}</p>
-              <p className="text-xs font-mono text-foreground/60 break-all max-w-[250px]">
-                {qrValue || "..."}
-              </p>
-            </div>
-            <p className="text-xs text-muted-foreground text-center max-w-[260px]">
-              {t("shareQr")}
+          <p className="text-xs text-muted-foreground mb-2">{t("yourUniqueId")}</p>
+          <div className="flex items-center gap-3">
+            <p className="flex-1 font-mono text-sm text-foreground break-all select-all">
+              {myBase58Id || "..."}
             </p>
-          </motion.div>
-        ) : (
+            <button
+              onClick={handleCopy}
+              className="shrink-0 p-2.5 rounded-xl glass-panel-sm hover:neon-border transition-all"
+              aria-label="Copy ID"
+            >
+              {copied ? (
+                <Check size={18} className="text-primary" />
+              ) : (
+                <Copy size={18} className="text-muted-foreground" />
+              )}
+            </button>
+          </div>
+          <p className="text-[11px] text-muted-foreground mt-3">{t("shareIdDesc")}</p>
+        </motion.div>
+
+        {/* Add Peer ID */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="glass-panel p-5 neon-border rounded-xl"
+        >
+          <p className="text-xs text-muted-foreground mb-3">{t("addPeerById")}</p>
+          <div className="flex items-center gap-2">
+            <input
+              value={peerId}
+              onChange={(e) => setPeerId(e.target.value)}
+              placeholder={t("enterFriendId")}
+              className="glass-input flex-1 py-2.5 text-sm font-mono"
+              onKeyDown={(e) => e.key === "Enter" && handleAddFriend()}
+            />
+            <button
+              onClick={handleAddFriend}
+              disabled={!peerId.trim()}
+              className="shrink-0 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium neon-glow disabled:opacity-30 transition-all flex items-center gap-2"
+            >
+              <UserPlus size={16} />
+              {t("add")}
+            </button>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Unblock Modal */}
+      {showUnblockModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm px-6">
           <motion.div
-            key="scan"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="glass-panel p-8 flex flex-col items-center gap-5 neon-border w-full max-w-[320px]"
+            className="glass-panel neon-border rounded-2xl p-6 max-w-sm w-full space-y-4"
           >
-            <div className="w-56 h-56 rounded-2xl neon-border flex items-center justify-center relative overflow-hidden">
-              <motion.div
-                className="absolute left-0 right-0 h-0.5 bg-primary/60"
-                style={{ boxShadow: "0 0 12px hsl(var(--neon-glow) / 0.6)" }}
-                animate={{ top: ["10%", "90%", "10%"] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              />
-              <ScanLine size={48} className="text-primary/30" />
+            <h2 className="text-lg font-bold text-foreground text-center">{t("unblockRestore")}</h2>
+            <p className="text-sm text-muted-foreground text-center leading-relaxed">
+              {t("unblockRestoreDesc")}
+            </p>
+            <div className="flex gap-3 pt-2">
+              <button
+                onClick={() => { setShowUnblockModal(false); setPendingUnblockId(""); }}
+                className="flex-1 py-2.5 rounded-xl glass-panel-sm text-sm text-foreground font-medium hover:bg-secondary/50 transition-colors"
+              >
+                {t("cancel")}
+              </button>
+              <button
+                onClick={handleUnblockAndAdd}
+                className="flex-1 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90 transition-colors"
+              >
+                {t("unblock")}
+              </button>
             </div>
-
-            {Capacitor.isNativePlatform() ? (
-              <p className="text-sm text-muted-foreground text-center max-w-[260px]">
-                {t("pointCamera")}
-              </p>
-            ) : (
-              <>
-                <p className="text-sm text-muted-foreground text-center">
-                  {t("cameraRequired")}
-                </p>
-                <div className="w-full space-y-2">
-                  <input
-                    value={manualId}
-                    onChange={(e) => setManualId(e.target.value)}
-                    placeholder={t("enterFriendId")}
-                    className="glass-input w-full text-sm"
-                  />
-                  <button
-                    onClick={() => {
-                      if (manualId.trim()) {
-                        addFriendById(manualId.trim());
-                        setManualId("");
-                      }
-                    }}
-                    className="w-full py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium neon-glow"
-                  >
-                    <UserPlus size={16} className="inline mr-2" />
-                    {t("addFriend")}
-                  </button>
-                </div>
-              </>
-            )}
-
-            {scanResult && (
-              <div className="text-center mt-2">
-                <p className="text-xs text-primary font-mono break-all">{scanResult}</p>
-              </div>
-            )}
           </motion.div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

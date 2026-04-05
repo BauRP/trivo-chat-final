@@ -97,7 +97,23 @@ export type TranslationKey =
   | "emptyFriendsList"
   | "friendAdded"
   | "enterFriendId"
-  | "e2eSessionStarted";
+  | "e2eSessionStarted"
+  | "idCopied"
+  | "copyFailed"
+  | "invalidIdFormat"
+  | "cannotAddSelf"
+  | "shareIdDesc"
+  | "addPeerById"
+  | "unblockRestore"
+  | "unblockRestoreDesc"
+  | "reportUser"
+  | "reportSubmitted"
+  | "reportFailed"
+  | "reportSpam"
+  | "reportHarassment"
+  | "reportChildSafety"
+  | "reportIllegal"
+  | "reportHateSpeech";
 
 type TranslationMap = Partial<Record<TranslationKey, string>>;
 
@@ -201,6 +217,22 @@ const en: TranslationMap = {
   friendAdded: "Friend added!",
   enterFriendId: "Enter friend ID...",
   e2eSessionStarted: "End-to-End Encrypted Session Started",
+  idCopied: "ID copied to clipboard!",
+  copyFailed: "Failed to copy",
+  invalidIdFormat: "Invalid ID format",
+  cannotAddSelf: "You cannot add yourself",
+  shareIdDesc: "Share this ID with friends so they can add you",
+  addPeerById: "Add a friend by their unique ID",
+  unblockRestore: "Unblock & Restore Access?",
+  unblockRestoreDesc: "This user was previously blocked. Would you like to unblock them and add as a friend?",
+  reportUser: "Report User",
+  reportSubmitted: "Report submitted. User blocked.",
+  reportFailed: "Failed to submit report",
+  reportSpam: "Spam",
+  reportHarassment: "Harassment",
+  reportChildSafety: "Child Safety",
+  reportIllegal: "Illegal Activities",
+  reportHateSpeech: "Hate Speech",
 };
 
 const ru: TranslationMap = {
@@ -303,6 +335,22 @@ const ru: TranslationMap = {
   friendAdded: "Друг добавлен!",
   enterFriendId: "Введите ID друга...",
   e2eSessionStarted: "Сквозное шифрование активировано",
+  idCopied: "ID скопирован в буфер обмена!",
+  copyFailed: "Не удалось скопировать",
+  invalidIdFormat: "Неверный формат ID",
+  cannotAddSelf: "Нельзя добавить себя",
+  shareIdDesc: "Поделитесь этим ID с друзьями, чтобы они могли вас добавить",
+  addPeerById: "Добавить друга по уникальному ID",
+  unblockRestore: "Разблокировать и восстановить доступ?",
+  unblockRestoreDesc: "Этот пользователь был ранее заблокирован. Хотите разблокировать и добавить в друзья?",
+  reportUser: "Пожаловаться",
+  reportSubmitted: "Жалоба отправлена. Пользователь заблокирован.",
+  reportFailed: "Не удалось отправить жалобу",
+  reportSpam: "Спам",
+  reportHarassment: "Преследование",
+  reportChildSafety: "Безопасность детей",
+  reportIllegal: "Незаконная деятельность",
+  reportHateSpeech: "Разжигание ненависти",
 };
 
 const kk: TranslationMap = {
@@ -405,6 +453,22 @@ const kk: TranslationMap = {
   friendAdded: "Дос қосылды!",
   enterFriendId: "Достың ID енгізіңіз...",
   e2eSessionStarted: "Толық шифрлау сеансы басталды",
+  idCopied: "ID буферге көшірілді!",
+  copyFailed: "Көшіру сәтсіз аяқталды",
+  invalidIdFormat: "Жарамсыз ID форматы",
+  cannotAddSelf: "Өзіңізді қоса алмайсыз",
+  shareIdDesc: "Достарыңызбен бөлісіңіз, олар сізді қоса алады",
+  addPeerById: "Бірегей ID арқылы дос қосу",
+  unblockRestore: "Бұғаттауды алу және қалпына келтіру?",
+  unblockRestoreDesc: "Бұл пайдаланушы бұрын бұғатталған. Бұғаттауды алып, дос ретінде қосғыңыз келе ме?",
+  reportUser: "Шағымдану",
+  reportSubmitted: "Шағым жіберілді. Пайдаланушы бұғатталды.",
+  reportFailed: "Шағымды жіберу сәтсіз",
+  reportSpam: "Спам",
+  reportHarassment: "Қудалау",
+  reportChildSafety: "Балалар қауіпсіздігі",
+  reportIllegal: "Заңсыз әрекеттер",
+  reportHateSpeech: "Жек көрушілікті тарату",
 };
 
 const es: TranslationMap = {
@@ -507,6 +571,22 @@ const es: TranslationMap = {
   friendAdded: "¡Amigo agregado!",
   enterFriendId: "Introduce el ID del amigo...",
   e2eSessionStarted: "Sesión cifrada de extremo a extremo iniciada",
+  idCopied: "¡ID copiado al portapapeles!",
+  copyFailed: "Error al copiar",
+  invalidIdFormat: "Formato de ID inválido",
+  cannotAddSelf: "No puedes agregarte a ti mismo",
+  shareIdDesc: "Comparte este ID con amigos para que puedan agregarte",
+  addPeerById: "Agregar amigo por su ID único",
+  unblockRestore: "¿Desbloquear y restaurar acceso?",
+  unblockRestoreDesc: "Este usuario fue bloqueado anteriormente. ¿Deseas desbloquearlo y agregarlo como amigo?",
+  reportUser: "Reportar usuario",
+  reportSubmitted: "Reporte enviado. Usuario bloqueado.",
+  reportFailed: "Error al enviar reporte",
+  reportSpam: "Spam",
+  reportHarassment: "Acoso",
+  reportChildSafety: "Seguridad infantil",
+  reportIllegal: "Actividades ilegales",
+  reportHateSpeech: "Discurso de odio",
 };
 
 const fr: TranslationMap = {
@@ -609,6 +689,22 @@ const fr: TranslationMap = {
   friendAdded: "Ami ajouté !",
   enterFriendId: "Entrez l'ID de l'ami...",
   e2eSessionStarted: "Session chiffrée de bout en bout démarrée",
+  idCopied: "ID copié dans le presse-papiers !",
+  copyFailed: "Échec de la copie",
+  invalidIdFormat: "Format d'ID invalide",
+  cannotAddSelf: "Vous ne pouvez pas vous ajouter vous-même",
+  shareIdDesc: "Partagez cet ID avec vos amis pour qu'ils puissent vous ajouter",
+  addPeerById: "Ajouter un ami par son ID unique",
+  unblockRestore: "Débloquer et restaurer l'accès ?",
+  unblockRestoreDesc: "Cet utilisateur a été bloqué précédemment. Voulez-vous le débloquer et l'ajouter comme ami ?",
+  reportUser: "Signaler l'utilisateur",
+  reportSubmitted: "Signalement envoyé. Utilisateur bloqué.",
+  reportFailed: "Échec de l'envoi du signalement",
+  reportSpam: "Spam",
+  reportHarassment: "Harcèlement",
+  reportChildSafety: "Sécurité des enfants",
+  reportIllegal: "Activités illégales",
+  reportHateSpeech: "Discours haineux",
 };
 
 const de: TranslationMap = {
@@ -711,6 +807,22 @@ const de: TranslationMap = {
   friendAdded: "Freund hinzugefügt!",
   enterFriendId: "Freundes-ID eingeben...",
   e2eSessionStarted: "Ende-zu-Ende-verschlüsselte Sitzung gestartet",
+  idCopied: "ID in die Zwischenablage kopiert!",
+  copyFailed: "Kopieren fehlgeschlagen",
+  invalidIdFormat: "Ungültiges ID-Format",
+  cannotAddSelf: "Sie können sich nicht selbst hinzufügen",
+  shareIdDesc: "Teilen Sie diese ID mit Freunden, damit sie Sie hinzufügen können",
+  addPeerById: "Freund über eindeutige ID hinzufügen",
+  unblockRestore: "Entsperren und Zugang wiederherstellen?",
+  unblockRestoreDesc: "Dieser Benutzer wurde zuvor blockiert. Möchten Sie ihn entsperren und als Freund hinzufügen?",
+  reportUser: "Benutzer melden",
+  reportSubmitted: "Meldung gesendet. Benutzer blockiert.",
+  reportFailed: "Meldung fehlgeschlagen",
+  reportSpam: "Spam",
+  reportHarassment: "Belästigung",
+  reportChildSafety: "Kindersicherheit",
+  reportIllegal: "Illegale Aktivitäten",
+  reportHateSpeech: "Hassrede",
 };
 
 const ja: TranslationMap = {
@@ -813,6 +925,22 @@ const ja: TranslationMap = {
   friendAdded: "友達を追加しました！",
   enterFriendId: "友達のIDを入力...",
   e2eSessionStarted: "エンドツーエンド暗号化セッション開始",
+  idCopied: "IDをクリップボードにコピーしました！",
+  copyFailed: "コピーに失敗しました",
+  invalidIdFormat: "無効なID形式",
+  cannotAddSelf: "自分自身を追加することはできません",
+  shareIdDesc: "このIDを友達と共有して追加してもらいましょう",
+  addPeerById: "固有IDで友達を追加",
+  unblockRestore: "ブロック解除してアクセスを復元しますか？",
+  unblockRestoreDesc: "このユーザーは以前ブロックされました。ブロックを解除して友達として追加しますか？",
+  reportUser: "ユーザーを報告",
+  reportSubmitted: "報告が送信されました。ユーザーがブロックされました。",
+  reportFailed: "報告の送信に失敗しました",
+  reportSpam: "スパム",
+  reportHarassment: "ハラスメント",
+  reportChildSafety: "児童の安全",
+  reportIllegal: "違法行為",
+  reportHateSpeech: "ヘイトスピーチ",
 };
 
 const zh: TranslationMap = {
@@ -915,6 +1043,22 @@ const zh: TranslationMap = {
   friendAdded: "好友已添加！",
   enterFriendId: "输入好友ID...",
   e2eSessionStarted: "端到端加密会话已开始",
+  idCopied: "ID已复制到剪贴板！",
+  copyFailed: "复制失败",
+  invalidIdFormat: "无效的ID格式",
+  cannotAddSelf: "不能添加自己",
+  shareIdDesc: "与好友分享此ID以便他们添加你",
+  addPeerById: "通过唯一ID添加好友",
+  unblockRestore: "解除屏蔽并恢复访问？",
+  unblockRestoreDesc: "此用户之前被屏蔽。是否要解除屏蔽并添加为好友？",
+  reportUser: "举报用户",
+  reportSubmitted: "举报已提交。用户已被屏蔽。",
+  reportFailed: "举报提交失败",
+  reportSpam: "垃圾信息",
+  reportHarassment: "骚扰",
+  reportChildSafety: "儿童安全",
+  reportIllegal: "违法活动",
+  reportHateSpeech: "仇恨言论",
 };
 
 const ar: TranslationMap = {
@@ -1017,6 +1161,22 @@ const ar: TranslationMap = {
   friendAdded: "تمت إضافة الصديق!",
   enterFriendId: "أدخل معرف الصديق...",
   e2eSessionStarted: "بدأت جلسة التشفير من طرف إلى طرف",
+  idCopied: "!تم نسخ المعرف إلى الحافظة",
+  copyFailed: "فشل النسخ",
+  invalidIdFormat: "تنسيق معرف غير صالح",
+  cannotAddSelf: "لا يمكنك إضافة نفسك",
+  shareIdDesc: "شارك هذا المعرف مع الأصدقاء حتى يتمكنوا من إضافتك",
+  addPeerById: "أضف صديقاً عبر معرفه الفريد",
+  unblockRestore: "إلغاء الحظر واستعادة الوصول؟",
+  unblockRestoreDesc: "تم حظر هذا المستخدم سابقاً. هل تريد إلغاء حظره وإضافته كصديق؟",
+  reportUser: "الإبلاغ عن المستخدم",
+  reportSubmitted: "تم إرسال البلاغ. تم حظر المستخدم.",
+  reportFailed: "فشل إرسال البلاغ",
+  reportSpam: "رسائل مزعجة",
+  reportHarassment: "تحرش",
+  reportChildSafety: "سلامة الأطفال",
+  reportIllegal: "أنشطة غير قانونية",
+  reportHateSpeech: "خطاب كراهية",
 };
 
 const hi: TranslationMap = {
@@ -1119,6 +1279,22 @@ const hi: TranslationMap = {
   friendAdded: "दोस्त जोड़ा गया!",
   enterFriendId: "दोस्त का ID दर्ज करें...",
   e2eSessionStarted: "एंड-टू-एंड एन्क्रिप्टेड सत्र शुरू हुआ",
+  idCopied: "ID क्लिपबोर्ड पर कॉपी हो गया!",
+  copyFailed: "कॉपी करने में विफल",
+  invalidIdFormat: "अमान्य ID प्रारूप",
+  cannotAddSelf: "आप खुद को नहीं जोड़ सकते",
+  shareIdDesc: "दोस्तों के साथ यह ID साझा करें ताकि वे आपको जोड़ सकें",
+  addPeerById: "अद्वितीय ID द्वारा दोस्त जोड़ें",
+  unblockRestore: "अनब्लॉक और एक्सेस पुनर्स्थापित करें?",
+  unblockRestoreDesc: "यह उपयोगकर्ता पहले ब्लॉक किया गया था। क्या आप अनब्लॉक करके दोस्त के रूप में जोड़ना चाहते हैं?",
+  reportUser: "उपयोगकर्ता की रिपोर्ट करें",
+  reportSubmitted: "रिपोर्ट भेजी गई। उपयोगकर्ता ब्लॉक किया गया।",
+  reportFailed: "रिपोर्ट भेजने में विफल",
+  reportSpam: "स्पैम",
+  reportHarassment: "उत्पीड़न",
+  reportChildSafety: "बाल सुरक्षा",
+  reportIllegal: "अवैध गतिविधियाँ",
+  reportHateSpeech: "नफरत भरी बोली",
 };
 
 const pt: TranslationMap = {
@@ -1221,6 +1397,22 @@ const pt: TranslationMap = {
   friendAdded: "Amigo adicionado!",
   enterFriendId: "Insira o ID do amigo...",
   e2eSessionStarted: "Sessão criptografada de ponta a ponta iniciada",
+  idCopied: "ID copiado para a área de transferência!",
+  copyFailed: "Falha ao copiar",
+  invalidIdFormat: "Formato de ID inválido",
+  cannotAddSelf: "Você não pode adicionar a si mesmo",
+  shareIdDesc: "Compartilhe este ID com amigos para que possam adicioná-lo",
+  addPeerById: "Adicionar amigo pelo ID único",
+  unblockRestore: "Desbloquear e restaurar acesso?",
+  unblockRestoreDesc: "Este usuário foi bloqueado anteriormente. Deseja desbloqueá-lo e adicionar como amigo?",
+  reportUser: "Denunciar usuário",
+  reportSubmitted: "Denúncia enviada. Usuário bloqueado.",
+  reportFailed: "Falha ao enviar denúncia",
+  reportSpam: "Spam",
+  reportHarassment: "Assédio",
+  reportChildSafety: "Segurança infantil",
+  reportIllegal: "Atividades ilegais",
+  reportHateSpeech: "Discurso de ódio",
 };
 
 const tr: TranslationMap = {
@@ -1323,6 +1515,22 @@ const tr: TranslationMap = {
   friendAdded: "Arkadaş eklendi!",
   enterFriendId: "Arkadaş ID'sini girin...",
   e2eSessionStarted: "Uçtan uca şifreli oturum başlatıldı",
+  idCopied: "ID panoya kopyalandı!",
+  copyFailed: "Kopyalama başarısız",
+  invalidIdFormat: "Geçersiz ID formatı",
+  cannotAddSelf: "Kendinizi ekleyemezsiniz",
+  shareIdDesc: "Bu ID'yi arkadaşlarınızla paylaşın",
+  addPeerById: "Benzersiz ID ile arkadaş ekle",
+  unblockRestore: "Engeli kaldır ve erişimi geri yükle?",
+  unblockRestoreDesc: "Bu kullanıcı daha önce engellenmiş. Engeli kaldırıp arkadaş olarak eklemek ister misiniz?",
+  reportUser: "Kullanıcıyı bildir",
+  reportSubmitted: "Bildirim gönderildi. Kullanıcı engellendi.",
+  reportFailed: "Bildirim gönderilemedi",
+  reportSpam: "Spam",
+  reportHarassment: "Taciz",
+  reportChildSafety: "Çocuk güvenliği",
+  reportIllegal: "Yasadışı faaliyetler",
+  reportHateSpeech: "Nefret söylemi",
 };
 
 const ko: TranslationMap = {
@@ -1425,6 +1633,22 @@ const ko: TranslationMap = {
   friendAdded: "친구가 추가되었습니다!",
   enterFriendId: "친구 ID 입력...",
   e2eSessionStarted: "종단간 암호화 세션 시작됨",
+  idCopied: "ID가 클립보드에 복사되었습니다!",
+  copyFailed: "복사 실패",
+  invalidIdFormat: "잘못된 ID 형식",
+  cannotAddSelf: "자기 자신은 추가할 수 없습니다",
+  shareIdDesc: "이 ID를 친구와 공유하여 추가하세요",
+  addPeerById: "고유 ID로 친구 추가",
+  unblockRestore: "차단 해제 및 액세스 복원?",
+  unblockRestoreDesc: "이 사용자는 이전에 차단되었습니다. 차단 해제하고 친구로 추가하시겠습니까?",
+  reportUser: "사용자 신고",
+  reportSubmitted: "신고가 제출되었습니다. 사용자가 차단되었습니다.",
+  reportFailed: "신고 제출 실패",
+  reportSpam: "스팸",
+  reportHarassment: "괴롭힘",
+  reportChildSafety: "아동 안전",
+  reportIllegal: "불법 활동",
+  reportHateSpeech: "혐오 발언",
 };
 
 const it: TranslationMap = {
@@ -1527,6 +1751,22 @@ const it: TranslationMap = {
   friendAdded: "Amico aggiunto!",
   enterFriendId: "Inserisci l'ID dell'amico...",
   e2eSessionStarted: "Sessione crittografata end-to-end avviata",
+  idCopied: "ID copiato negli appunti!",
+  copyFailed: "Copia fallita",
+  invalidIdFormat: "Formato ID non valido",
+  cannotAddSelf: "Non puoi aggiungere te stesso",
+  shareIdDesc: "Condividi questo ID con gli amici per aggiungerti",
+  addPeerById: "Aggiungi amico tramite ID univoco",
+  unblockRestore: "Sblocca e ripristina accesso?",
+  unblockRestoreDesc: "Questo utente è stato bloccato in precedenza. Vuoi sbloccarlo e aggiungerlo come amico?",
+  reportUser: "Segnala utente",
+  reportSubmitted: "Segnalazione inviata. Utente bloccato.",
+  reportFailed: "Invio segnalazione fallito",
+  reportSpam: "Spam",
+  reportHarassment: "Molestie",
+  reportChildSafety: "Sicurezza dei minori",
+  reportIllegal: "Attività illegali",
+  reportHateSpeech: "Incitamento all'odio",
 };
 
 const nl: TranslationMap = {
@@ -1629,6 +1869,22 @@ const nl: TranslationMap = {
   friendAdded: "Vriend toegevoegd!",
   enterFriendId: "Voer het ID van de vriend in...",
   e2eSessionStarted: "End-to-end versleutelde sessie gestart",
+  idCopied: "ID gekopieerd naar klembord!",
+  copyFailed: "Kopiëren mislukt",
+  invalidIdFormat: "Ongeldig ID-formaat",
+  cannotAddSelf: "U kunt uzelf niet toevoegen",
+  shareIdDesc: "Deel dit ID met vrienden zodat ze u kunnen toevoegen",
+  addPeerById: "Voeg vriend toe via uniek ID",
+  unblockRestore: "Deblokkeren en toegang herstellen?",
+  unblockRestoreDesc: "Deze gebruiker was eerder geblokkeerd. Wilt u deblokkeren en als vriend toevoegen?",
+  reportUser: "Gebruiker rapporteren",
+  reportSubmitted: "Melding verzonden. Gebruiker geblokkeerd.",
+  reportFailed: "Melding verzenden mislukt",
+  reportSpam: "Spam",
+  reportHarassment: "Intimidatie",
+  reportChildSafety: "Kinderveiligheid",
+  reportIllegal: "Illegale activiteiten",
+  reportHateSpeech: "Haatzaaien",
 };
 
 export const translations: Record<string, TranslationMap> = {

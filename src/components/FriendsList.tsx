@@ -14,7 +14,7 @@ interface Friend {
   status: "online" | "away" | "offline";
   blocked: boolean;
   starred: boolean;
-  security: { e2ee: boolean; noise: boolean; invisible: boolean };
+  security: { e2ee: boolean; invisible: boolean };
 }
 
 interface FriendsListProps {
@@ -33,7 +33,6 @@ const FriendsList = ({ onOpenChat }: FriendsListProps) => {
   const [muteTarget, setMuteTarget] = useState<string | null>(null);
   const { t } = useLanguage();
 
-  // Load friends from IndexedDB (chat metas = friends)
   useEffect(() => {
     const loadFriends = async () => {
       const metas = await getAllChatMetas();
@@ -44,7 +43,7 @@ const FriendsList = ({ onOpenChat }: FriendsListProps) => {
         status: "offline" as const,
         blocked: false,
         starred: false,
-        security: { e2ee: true, noise: false, invisible: false },
+        security: { e2ee: true, invisible: false },
       }));
       setFriends(friendList);
     };
@@ -82,9 +81,7 @@ const FriendsList = ({ onOpenChat }: FriendsListProps) => {
           <span className="text-sm text-muted-foreground">0 {t("contacts")}</span>
         </div>
         <div className="flex-1 flex items-center justify-center px-8">
-          <p className="text-sm text-muted-foreground text-center">
-            {t("emptyFriendsList")}
-          </p>
+          <p className="text-sm text-muted-foreground text-center">{t("emptyFriendsList")}</p>
         </div>
       </div>
     );
@@ -120,7 +117,7 @@ const FriendsList = ({ onOpenChat }: FriendsListProps) => {
                 <p className="font-semibold text-foreground">{friend.name}</p>
                 <p className="text-xs text-muted-foreground">{statusLabelMap[friend.status]}</p>
               </div>
-              <SecurityBadges e2ee={friend.security.e2ee} noise={friend.security.noise} invisible={friend.security.invisible} size={15} />
+              <SecurityBadges e2ee={friend.security.e2ee} invisible={friend.security.invisible} size={15} />
               <button
                 onClick={(e) => { e.stopPropagation(); setMenuOpen(menuOpen === friend.id ? null : friend.id); }}
                 className="p-2 rounded-lg hover:bg-secondary/50 text-muted-foreground"

@@ -18,7 +18,7 @@ interface Chat {
   status: "sent" | "read";
   muted: boolean;
   blocked: boolean;
-  security: { e2ee: boolean; noise: boolean; invisible: boolean };
+  security: { e2ee: boolean; invisible: boolean };
 }
 
 interface ChatListProps {
@@ -48,7 +48,7 @@ const ChatList = ({ onOpenChat }: ChatListProps) => {
         status: "sent" as const,
         muted: false,
         blocked: false,
-        security: { e2ee: true, noise: false, invisible: false },
+        security: { e2ee: true, invisible: false },
       }));
       setChats(chatList);
     };
@@ -172,7 +172,7 @@ const ChatList = ({ onOpenChat }: ChatListProps) => {
                       </span>
                     )}
                   </div>
-                  <SecurityBadges e2ee={chat.security.e2ee} noise={chat.security.noise} invisible={chat.security.invisible} size={15} />
+                  <SecurityBadges e2ee={chat.security.e2ee} invisible={chat.security.invisible} size={15} />
                 </div>
                 <button
                   onClick={(e) => { e.stopPropagation(); setMenuOpen(menuOpen === chat.id ? null : chat.id); }}

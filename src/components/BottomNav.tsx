@@ -1,4 +1,4 @@
-import { MessageCircle, QrCode, Users, User, Shield } from "lucide-react";
+import { MessageCircle, UserPlus, Users, User, Shield } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { TranslationKey } from "@/i18n/translations";
@@ -12,7 +12,7 @@ interface BottomNavProps {
 
 const tabs: { id: Tab; labelKey: TranslationKey; icon: typeof MessageCircle }[] = [
   { id: "chats", labelKey: "chats", icon: MessageCircle },
-  { id: "add-friend", labelKey: "add", icon: QrCode },
+  { id: "add-friend", labelKey: "add", icon: UserPlus },
   { id: "friends", labelKey: "friends", icon: Users },
   { id: "security", labelKey: "security", icon: Shield },
   { id: "profile", labelKey: "profile", icon: User },
