@@ -217,6 +217,22 @@ const en: TranslationMap = {
   friendAdded: "Friend added!",
   enterFriendId: "Enter friend ID...",
   e2eSessionStarted: "End-to-End Encrypted Session Started",
+  idCopied: "ID copied to clipboard!",
+  copyFailed: "Failed to copy",
+  invalidIdFormat: "Invalid ID format",
+  cannotAddSelf: "You cannot add yourself",
+  shareIdDesc: "Share this ID with friends so they can add you",
+  addPeerById: "Add a friend by their unique ID",
+  unblockRestore: "Unblock & Restore Access?",
+  unblockRestoreDesc: "This user was previously blocked. Would you like to unblock them and add as a friend?",
+  reportUser: "Report User",
+  reportSubmitted: "Report submitted. User blocked.",
+  reportFailed: "Failed to submit report",
+  reportSpam: "Spam",
+  reportHarassment: "Harassment",
+  reportChildSafety: "Child Safety",
+  reportIllegal: "Illegal Activities",
+  reportHateSpeech: "Hate Speech",
 };
 
 const ru: TranslationMap = {
