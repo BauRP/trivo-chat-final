@@ -1633,6 +1633,22 @@ const ko: TranslationMap = {
   friendAdded: "친구가 추가되었습니다!",
   enterFriendId: "친구 ID 입력...",
   e2eSessionStarted: "종단간 암호화 세션 시작됨",
+  idCopied: "ID가 클립보드에 복사되었습니다!",
+  copyFailed: "복사 실패",
+  invalidIdFormat: "잘못된 ID 형식",
+  cannotAddSelf: "자기 자신은 추가할 수 없습니다",
+  shareIdDesc: "이 ID를 친구와 공유하여 추가하세요",
+  addPeerById: "고유 ID로 친구 추가",
+  unblockRestore: "차단 해제 및 액세스 복원?",
+  unblockRestoreDesc: "이 사용자는 이전에 차단되었습니다. 차단 해제하고 친구로 추가하시겠습니까?",
+  reportUser: "사용자 신고",
+  reportSubmitted: "신고가 제출되었습니다. 사용자가 차단되었습니다.",
+  reportFailed: "신고 제출 실패",
+  reportSpam: "스팸",
+  reportHarassment: "괴롭힘",
+  reportChildSafety: "아동 안전",
+  reportIllegal: "불법 활동",
+  reportHateSpeech: "혐오 발언",
 };
 
 const it: TranslationMap = {
