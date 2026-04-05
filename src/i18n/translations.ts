@@ -453,6 +453,22 @@ const kk: TranslationMap = {
   friendAdded: "Дос қосылды!",
   enterFriendId: "Достың ID енгізіңіз...",
   e2eSessionStarted: "Толық шифрлау сеансы басталды",
+  idCopied: "ID буферге көшірілді!",
+  copyFailed: "Көшіру сәтсіз аяқталды",
+  invalidIdFormat: "Жарамсыз ID форматы",
+  cannotAddSelf: "Өзіңізді қоса алмайсыз",
+  shareIdDesc: "Достарыңызбен бөлісіңіз, олар сізді қоса алады",
+  addPeerById: "Бірегей ID арқылы дос қосу",
+  unblockRestore: "Бұғаттауды алу және қалпына келтіру?",
+  unblockRestoreDesc: "Бұл пайдаланушы бұрын бұғатталған. Бұғаттауды алып, дос ретінде қосғыңыз келе ме?",
+  reportUser: "Шағымдану",
+  reportSubmitted: "Шағым жіберілді. Пайдаланушы бұғатталды.",
+  reportFailed: "Шағымды жіберу сәтсіз",
+  reportSpam: "Спам",
+  reportHarassment: "Қудалау",
+  reportChildSafety: "Балалар қауіпсіздігі",
+  reportIllegal: "Заңсыз әрекеттер",
+  reportHateSpeech: "Жек көрушілікті тарату",
 };
 
 const es: TranslationMap = {
