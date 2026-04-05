@@ -18,7 +18,7 @@ interface Chat {
   status: "sent" | "read";
   muted: boolean;
   blocked: boolean;
-  security: { e2ee: boolean; noise: boolean; invisible: boolean };
+  security: { e2ee: boolean; invisible: boolean };
 }
 
 interface ChatListProps {
