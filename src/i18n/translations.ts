@@ -97,7 +97,23 @@ export type TranslationKey =
   | "emptyFriendsList"
   | "friendAdded"
   | "enterFriendId"
-  | "e2eSessionStarted";
+  | "e2eSessionStarted"
+  | "idCopied"
+  | "copyFailed"
+  | "invalidIdFormat"
+  | "cannotAddSelf"
+  | "shareIdDesc"
+  | "addPeerById"
+  | "unblockRestore"
+  | "unblockRestoreDesc"
+  | "reportUser"
+  | "reportSubmitted"
+  | "reportFailed"
+  | "reportSpam"
+  | "reportHarassment"
+  | "reportChildSafety"
+  | "reportIllegal"
+  | "reportHateSpeech";
 
 type TranslationMap = Partial<Record<TranslationKey, string>>;
 
