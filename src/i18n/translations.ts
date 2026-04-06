@@ -236,6 +236,9 @@ const en: TranslationMap = {
   reportChildSafety: "Child Safety",
   reportIllegal: "Illegal Activities",
   reportHateSpeech: "Hate Speech",
+  mediaUploaded: "Media sent",
+  mediaUploadFailed: "Upload failed",
+  uploading: "Uploading...",
 };
 
 const ru: TranslationMap = {
@@ -354,6 +357,9 @@ const ru: TranslationMap = {
   reportChildSafety: "Безопасность детей",
   reportIllegal: "Незаконная деятельность",
   reportHateSpeech: "Разжигание ненависти",
+  mediaUploaded: "Медиа отправлено",
+  mediaUploadFailed: "Ошибка загрузки",
+  uploading: "Загрузка...",
 };
 
 const kk: TranslationMap = {
@@ -472,6 +478,9 @@ const kk: TranslationMap = {
   reportChildSafety: "Балалар қауіпсіздігі",
   reportIllegal: "Заңсыз әрекеттер",
   reportHateSpeech: "Жек көрушілікті тарату",
+  mediaUploaded: "Медиа жіберілді",
+  mediaUploadFailed: "Жүктеу сәтсіз",
+  uploading: "Жүктелуде...",
 };
 
 const es: TranslationMap = {
@@ -590,6 +599,9 @@ const es: TranslationMap = {
   reportChildSafety: "Seguridad infantil",
   reportIllegal: "Actividades ilegales",
   reportHateSpeech: "Discurso de odio",
+  mediaUploaded: "Media enviado",
+  mediaUploadFailed: "Error al subir",
+  uploading: "Subiendo...",
 };
 
 const fr: TranslationMap = {
@@ -708,6 +720,9 @@ const fr: TranslationMap = {
   reportChildSafety: "Sécurité des enfants",
   reportIllegal: "Activités illégales",
   reportHateSpeech: "Discours haineux",
+  mediaUploaded: "Média envoyé",
+  mediaUploadFailed: "Échec du téléchargement",
+  uploading: "Chargement...",
 };
 
 const de: TranslationMap = {
@@ -826,6 +841,9 @@ const de: TranslationMap = {
   reportChildSafety: "Kindersicherheit",
   reportIllegal: "Illegale Aktivitäten",
   reportHateSpeech: "Hassrede",
+  mediaUploaded: "Medien gesendet",
+  mediaUploadFailed: "Upload fehlgeschlagen",
+  uploading: "Wird hochgeladen...",
 };
 
 const ja: TranslationMap = {
@@ -944,6 +962,9 @@ const ja: TranslationMap = {
   reportChildSafety: "児童の安全",
   reportIllegal: "違法行為",
   reportHateSpeech: "ヘイトスピーチ",
+  mediaUploaded: "メディア送信済み",
+  mediaUploadFailed: "アップロード失敗",
+  uploading: "アップロード中...",
 };
 
 const zh: TranslationMap = {
@@ -1062,6 +1083,9 @@ const zh: TranslationMap = {
   reportChildSafety: "儿童安全",
   reportIllegal: "违法活动",
   reportHateSpeech: "仇恨言论",
+  mediaUploaded: "媒体已发送",
+  mediaUploadFailed: "上传失败",
+  uploading: "上传中...",
 };
 
 const ar: TranslationMap = {
@@ -1180,6 +1204,9 @@ const ar: TranslationMap = {
   reportChildSafety: "سلامة الأطفال",
   reportIllegal: "أنشطة غير قانونية",
   reportHateSpeech: "خطاب كراهية",
+  mediaUploaded: "تم إرسال الوسائط",
+  mediaUploadFailed: "فشل التحميل",
+  uploading: "جاري التحميل...",
 };
 
 const hi: TranslationMap = {
@@ -1298,6 +1325,9 @@ const hi: TranslationMap = {
   reportChildSafety: "बाल सुरक्षा",
   reportIllegal: "अवैध गतिविधियाँ",
   reportHateSpeech: "नफरत भरी बोली",
+  mediaUploaded: "मीडिया भेजा गया",
+  mediaUploadFailed: "अपलोड विफल",
+  uploading: "अपलोड हो रहा है...",
 };
 
 const pt: TranslationMap = {
@@ -1416,6 +1446,9 @@ const pt: TranslationMap = {
   reportChildSafety: "Segurança infantil",
   reportIllegal: "Atividades ilegais",
   reportHateSpeech: "Discurso de ódio",
+  mediaUploaded: "Mídia enviada",
+  mediaUploadFailed: "Falha no upload",
+  uploading: "Enviando...",
 };
 
 const tr: TranslationMap = {
@@ -1534,6 +1567,9 @@ const tr: TranslationMap = {
   reportChildSafety: "Çocuk güvenliği",
   reportIllegal: "Yasadışı faaliyetler",
   reportHateSpeech: "Nefret söylemi",
+  mediaUploaded: "Medya gönderildi",
+  mediaUploadFailed: "Yükleme başarısız",
+  uploading: "Yükleniyor...",
 };
 
 const ko: TranslationMap = {
@@ -1652,6 +1688,9 @@ const ko: TranslationMap = {
   reportChildSafety: "아동 안전",
   reportIllegal: "불법 활동",
   reportHateSpeech: "혐오 발언",
+  mediaUploaded: "미디어 전송됨",
+  mediaUploadFailed: "업로드 실패",
+  uploading: "업로드 중...",
 };
 
 const it: TranslationMap = {
@@ -1770,6 +1809,9 @@ const it: TranslationMap = {
   reportChildSafety: "Sicurezza dei minori",
   reportIllegal: "Attività illegali",
   reportHateSpeech: "Incitamento all'odio",
+  mediaUploaded: "Media inviato",
+  mediaUploadFailed: "Caricamento fallito",
+  uploading: "Caricamento...",
 };
 
 const nl: TranslationMap = {
@@ -1888,6 +1930,9 @@ const nl: TranslationMap = {
   reportChildSafety: "Kinderveiligheid",
   reportIllegal: "Illegale activiteiten",
   reportHateSpeech: "Haatzaaien",
+  mediaUploaded: "Media verzonden",
+  mediaUploadFailed: "Upload mislukt",
+  uploading: "Uploaden...",
 };
 
 export const translations: Record<string, TranslationMap> = {
