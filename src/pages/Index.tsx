@@ -28,6 +28,7 @@ const Index = () => {
   useEffect(() => {
     if (!fingerprint) return;
     initPeer(fingerprint).catch(() => {});
+    const stopPresence = startPresence(fingerprint);
 
     const unsubMsg = onP2PMessage(async (msg: P2PMessage) => {
       const existing = await getChatMeta(msg.from);
