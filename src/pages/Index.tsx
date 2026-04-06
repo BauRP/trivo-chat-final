@@ -52,6 +52,7 @@ const Index = () => {
     return () => {
       unsubMsg();
       unsubConn();
+      stopPresence();
     };
   }, [fingerprint]);
 
