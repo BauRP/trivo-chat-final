@@ -113,7 +113,10 @@ export type TranslationKey =
   | "reportHarassment"
   | "reportChildSafety"
   | "reportIllegal"
-  | "reportHateSpeech";
+  | "reportHateSpeech"
+  | "mediaUploaded"
+  | "mediaUploadFailed"
+  | "uploading";
 
 type TranslationMap = Partial<Record<TranslationKey, string>>;
 
