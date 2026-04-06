@@ -11,6 +11,7 @@ import AdMobBanner from "@/components/AdMobBanner";
 import { useIdentity } from "@/contexts/IdentityContext";
 import { initPeer, onP2PMessage, onConnectionChange, flushPendingMessages, saveChatMeta, getChatMeta, type P2PMessage } from "@/lib/p2p";
 import { executePanic, createPanicLongPress } from "@/lib/panic";
+import { startPresence } from "@/lib/presence";
 
 type Tab = "chats" | "add-friend" | "friends" | "security" | "profile";
 
@@ -27,6 +28,7 @@ const Index = () => {
   useEffect(() => {
     if (!fingerprint) return;
     initPeer(fingerprint).catch(() => {});
+    const stopPresence = startPresence(fingerprint);
 
     const unsubMsg = onP2PMessage(async (msg: P2PMessage) => {
       const existing = await getChatMeta(msg.from);
@@ -50,6 +52,7 @@ const Index = () => {
     return () => {
       unsubMsg();
       unsubConn();
+      stopPresence();
     };
   }, [fingerprint]);
 
