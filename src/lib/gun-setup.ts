@@ -7,13 +7,58 @@ const RELAY_PEERS = [
   "https://gundb-relay-mlccl.ondigitalocean.app/gun",
   "https://gun-ams1.livex.space/gun",
   "https://gun-sjc1.livex.space/gun",
+  "https://gun-us.herokuapp.com/gun",
+  "https://gun-eu.herokuapp.com/gun",
+  "https://gun-relay.herokuapp.com/gun",
+  "https://gun2.livex.space/gun",
+  "https://gun3.livex.space/gun",
+  "https://gun-ams2.livex.space/gun",
+  "https://gun-sjc2.livex.space/gun",
+  "https://gun-fra1.livex.space/gun",
+  "https://gun-lon1.livex.space/gun",
+  "https://gun-sgp1.livex.space/gun",
+  "https://gun-blr1.livex.space/gun",
+  "https://gun-nyc1.livex.space/gun",
+  "https://gun-sfo1.livex.space/gun",
+  "https://gun-tor1.livex.space/gun",
+  "https://gun-ams3.livex.space/gun",
+  "https://gun-fra2.livex.space/gun",
+  "https://gun-lon2.livex.space/gun",
+  "https://gun-sgp2.livex.space/gun",
+  "https://gun-blr2.livex.space/gun",
+  "https://gun-nyc2.livex.space/gun",
+  "https://gun-sfo2.livex.space/gun",
+  "https://gun-tor2.livex.space/gun",
+  "https://gun-ams4.livex.space/gun",
+  "https://gun-fra3.livex.space/gun",
+  "https://gun-lon3.livex.space/gun",
 ];
 
 let gun: any;
+let activeNodeIndex = 0;
+
+function getActivePeers(): string[] {
+  // Use 5 peers at a time, rotating through the list
+  const peers: string[] = [];
+  for (let i = 0; i < 5; i++) {
+    peers.push(RELAY_PEERS[(activeNodeIndex + i) % RELAY_PEERS.length]);
+  }
+  return peers;
+}
+
+function rotateToNextNode() {
+  activeNodeIndex = (activeNodeIndex + 5) % RELAY_PEERS.length;
+  const newPeers = getActivePeers();
+  try {
+    newPeers.forEach((peer) => {
+      try { gun.opt({ peers: [peer] }); } catch {}
+    });
+  } catch {}
+}
 
 try {
   gun = Gun({
-    peers: RELAY_PEERS,
+    peers: getActivePeers(),
     localStorage: true,
     radisk: true,
   });
@@ -29,9 +74,7 @@ function startPeerHealthCheck() {
     try {
       const mesh = gun?.back?.("opt.peers") || gun?._.opt?.peers;
       if (!mesh || Object.keys(mesh).length === 0) {
-        RELAY_PEERS.forEach((peer) => {
-          try { gun.opt({ peers: [peer] }); } catch {}
-        });
+        rotateToNextNode();
       }
     } catch {}
   }, 30000);

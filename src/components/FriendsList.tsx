@@ -6,6 +6,8 @@ import SecurityBadges from "./SecurityBadges";
 import DefaultAvatar from "./DefaultAvatar";
 import MuteModal from "./MuteModal";
 import { getAllChatMetas, type ChatMeta } from "@/lib/p2p";
+import { subscribeToPresence, getPresenceStatus, onPresenceChange } from "@/lib/presence";
+import { dbGet, dbPut } from "@/lib/storage";
 
 interface Friend {
   id: string;
@@ -36,21 +38,34 @@ const FriendsList = ({ onOpenChat }: FriendsListProps) => {
   useEffect(() => {
     const loadFriends = async () => {
       const metas = await getAllChatMetas();
+      const starred = (await dbGet<string[]>("settings", "starred-friends")) || [];
       const friendList: Friend[] = metas.map((m: ChatMeta) => ({
         id: m.friendId,
         name: m.friendName,
         avatar: m.friendAvatar || null,
-        status: "offline" as const,
+        status: getPresenceStatus(m.friendId),
         blocked: false,
-        starred: false,
+        starred: starred.includes(m.friendId),
         security: { e2ee: true, invisible: false },
       }));
       setFriends(friendList);
     };
     loadFriends();
+
+    // Subscribe to presence for all friends
+    const unsubPresence = onPresenceChange((userId, status) => {
+      setFriends((prev) => prev.map((f) => f.id === userId ? { ...f, status } : f));
+    });
+
     const interval = setInterval(loadFriends, 5000);
-    return () => clearInterval(interval);
+    return () => { clearInterval(interval); unsubPresence(); };
   }, []);
+
+  // Subscribe to presence for each friend
+  useEffect(() => {
+    const unsubs = friends.map((f) => subscribeToPresence(f.id));
+    return () => unsubs.forEach((u) => u());
+  }, [friends.length]);
 
   const removeFriend = (id: string) => {
     setFriends((prev) => prev.filter((f) => f.id !== id));
@@ -62,9 +77,13 @@ const FriendsList = ({ onOpenChat }: FriendsListProps) => {
     setMenuOpen(null);
   };
 
-  const toggleStar = (id: string) => {
+  const toggleStar = async (id: string) => {
     setFriends((prev) => prev.map((f) => (f.id === id ? { ...f, starred: !f.starred } : f)));
     setMenuOpen(null);
+    // Persist
+    const starred = (await dbGet<string[]>("settings", "starred-friends")) || [];
+    const updated = starred.includes(id) ? starred.filter((s) => s !== id) : [...starred, id];
+    await dbPut("settings", "starred-friends", updated);
   };
 
   const statusLabelMap: Record<string, string> = {
@@ -72,6 +91,14 @@ const FriendsList = ({ onOpenChat }: FriendsListProps) => {
     away: t("away"),
     offline: t("offline"),
   };
+
+  // Sort: starred first, then online, then away, then offline
+  const sorted = [...friends].sort((a, b) => {
+    if (a.starred && !b.starred) return -1;
+    if (!a.starred && b.starred) return 1;
+    const statusOrder = { online: 0, away: 1, offline: 2 };
+    return statusOrder[a.status] - statusOrder[b.status];
+  });
 
   if (friends.length === 0) {
     return (
@@ -95,7 +122,7 @@ const FriendsList = ({ onOpenChat }: FriendsListProps) => {
       </div>
       <div className="flex-1 overflow-y-auto scrollbar-hide px-3 space-y-1.5">
         <AnimatePresence>
-          {friends.map((friend, i) => (
+          {sorted.map((friend, i) => (
             <motion.div
               key={friend.id}
               layout
@@ -114,7 +141,10 @@ const FriendsList = ({ onOpenChat }: FriendsListProps) => {
                 />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-foreground">{friend.name}</p>
+                <div className="flex items-center gap-1.5">
+                  <p className="font-semibold text-foreground">{friend.name}</p>
+                  {friend.starred && <Star size={12} className="fill-primary text-primary" />}
+                </div>
                 <p className="text-xs text-muted-foreground">{statusLabelMap[friend.status]}</p>
               </div>
               <SecurityBadges e2ee={friend.security.e2ee} invisible={friend.security.invisible} size={15} />

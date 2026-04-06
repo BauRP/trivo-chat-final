@@ -6,6 +6,7 @@ import SecurityBadges from "./SecurityBadges";
 import DefaultAvatar from "./DefaultAvatar";
 import MuteModal from "./MuteModal";
 import { getAllChatMetas, type ChatMeta } from "@/lib/p2p";
+import { dbGet, dbPut } from "@/lib/storage";
 
 interface Chat {
   id: string;
@@ -31,10 +32,10 @@ const ChatList = ({ onOpenChat }: ChatListProps) => {
   const [muteTarget, setMuteTarget] = useState<string | null>(null);
   const { t } = useLanguage();
 
-  // Load chats from IndexedDB
   useEffect(() => {
     const loadChats = async () => {
       const metas = await getAllChatMetas();
+      const starred = (await dbGet<string[]>("settings", "starred-chats")) || [];
       const chatList: Chat[] = metas.map((m: ChatMeta) => ({
         id: m.friendId,
         name: m.friendName,
@@ -44,7 +45,7 @@ const ChatList = ({ onOpenChat }: ChatListProps) => {
           ? new Date(m.lastMessageTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
           : "",
         unread: m.unread,
-        starred: false,
+        starred: starred.includes(m.friendId),
         status: "sent" as const,
         muted: false,
         blocked: false,
@@ -53,15 +54,16 @@ const ChatList = ({ onOpenChat }: ChatListProps) => {
       setChats(chatList);
     };
     loadChats();
-
-    // Refresh periodically
     const interval = setInterval(loadChats, 3000);
     return () => clearInterval(interval);
   }, [t]);
 
-  const toggleStar = (e: React.MouseEvent, id: string) => {
+  const toggleStar = async (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     setChats((prev) => prev.map((c) => (c.id === id ? { ...c, starred: !c.starred } : c)));
+    const starred = (await dbGet<string[]>("settings", "starred-chats")) || [];
+    const updated = starred.includes(id) ? starred.filter((s) => s !== id) : [...starred, id];
+    await dbPut("settings", "starred-chats", updated);
   };
 
   const clearChat = (id: string) => {
@@ -90,7 +92,6 @@ const ChatList = ({ onOpenChat }: ChatListProps) => {
   const sorted = [...chats].sort((a, b) => {
     if (a.starred && !b.starred) return -1;
     if (!a.starred && b.starred) return 1;
-    if (a.starred && b.starred) return a.name.localeCompare(b.name);
     return 0;
   });
 
